@@ -12,15 +12,15 @@ resources:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      ref: refs/tags/0.4.1
-      #ref: refs/heads/feature/workbooks
+      #ref: refs/tags/0.4.1
+      ref: refs/heads/feature/parametrization
       endpoint: crux
 
     - repository: tests
       type: github
       name: ObjectivityLtd/jmeter_simple_test
       #ref: refs/tags/0.3.2
-      ref: refs/heads/release/0.4.1
+      ref: refs/heads/feature/parametrization
       #ref: refs/tags/0.4.1
       endpoint: crux
 
