@@ -88,3 +88,4 @@ jobs:
     parameters:
       mode: ${{ parameters.mode }}
       debug: ${{ parameters.debug }}
+      linux_pool: "DevOps Linux"
