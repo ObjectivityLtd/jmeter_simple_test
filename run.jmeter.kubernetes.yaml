@@ -86,7 +86,11 @@ variables:
   namespace: default
 
 jobs:
-  - template: run.jmeter.kubernetes.job.yaml
+  - template: run.jmeter.kubernetes.template.yaml
+    parameters:
+      mode: ${{ parameters.mode }}
+        debug: ${{ parameters.debug }}
+        linux_pool: microsoft_hosted
 #- template: pipelines/azure/templates/run.mode.selector.yaml@crux
 #  parameters:
 #    mode: ${{ parameters.mode }}
