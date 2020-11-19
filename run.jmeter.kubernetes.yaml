@@ -71,7 +71,8 @@ variables:
   crux_file: $(repoName)/path/to/jmeter/config/crux.properties
   thresholds_file: $(repoName)/path/to/jmeter/config/thresholds.properties
   workbooks_file: $(repoName)/path/to/jmeter/config/workbooks.properties
-  prehook_file: $(repoName)/path/to/jmeter/config/pre_hook.yaml
+  prehook_file: $(repoName)/path/to/jmeter/config/pre_hook.ps1
+  prehook_cli_file: $(repoName)/path/to/jmeter/config/pre_hook.cli.ps1
   jmeter_args: ${{ parameters.jmeter_args }}
   repoName: jmeter_simple_test
   cruxRepoName: crux
