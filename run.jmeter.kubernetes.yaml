@@ -71,6 +71,7 @@ variables:
   crux_file: $(repoName)/path/to/jmeter/config/crux.properties
   thresholds_file: $(repoName)/path/to/jmeter/config/thresholds.properties
   workbooks_file: $(repoName)/path/to/jmeter/config/workbooks.properties
+  prehook_file: $(repoName)/path/to/jmeter/config/pre_hook.yaml
   jmeter_args: ${{ parameters.jmeter_args }}
   repoName: jmeter_simple_test
   cruxRepoName: crux
@@ -84,8 +85,8 @@ variables:
   namespace: default
 
 jobs:
-  - template: pipelines/azure/templates/run.mode.selector.yaml@crux
-    parameters:
-      mode: ${{ parameters.mode }}
-      debug: ${{ parameters.debug }}
-      linux_pool: microsoft_hosted
+- template: pipelines/azure/templates/run.mode.selector.yaml@crux
+  parameters:
+    mode: ${{ parameters.mode }}
+    debug: ${{ parameters.debug }}
+    linux_pool: microsoft_hosted
