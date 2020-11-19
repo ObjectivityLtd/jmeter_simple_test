@@ -26,4 +26,10 @@ jobs:
           mode: ${{ parameters.mode }}
 
     steps:
+      - bash: |
+          echo "Run mode selected:"  ${{ parameters.mode }}
+          echo "Debug:"  ${{ parameters.debug }}
+          echo "Pool:"  ${{ parameters.linux_pool }}
+          env | grep cluster
+        displayName: Display selected mode
       - template: pipelines/azure/templates/steps/step.crux_clone.yaml@crux
