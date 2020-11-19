@@ -8,6 +8,11 @@ parameters:
     type: string
     default: microsoft_hosted
 
+  - name: debug
+    displayName: 'Display additional diagnostics ?'
+    type: boolean
+    default: false
+
 jobs:
   - job: Experimental
     timeoutInMinutes: 8
