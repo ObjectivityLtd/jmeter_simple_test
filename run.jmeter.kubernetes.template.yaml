@@ -17,9 +17,17 @@ jobs:
   - job: Experimental
     timeoutInMinutes: 8
     cancelTimeoutInMinutes: 0
-    pool:
-      vmImage: 'ubuntu-latest'
     displayName: Experimental
+
+    #choose pool
+    ${{ if eq(parameters.linux_pool, 'microsoft_hosted') }}:
+      pool:
+        vmImage: 'ubuntu-latest'
+    ${{ if ne(parameters.linux_pool, 'microsoft_hosted') }}:
+      pool: ${{ parameters.linux_pool }}
+
+    #load up default variables
+    condition: not(eq(variables['jmeter_tests'], false))
     variables:
       - template: pipelines/azure/templates/default.variables.yaml@crux
         parameters:
@@ -30,7 +38,11 @@ jobs:
           echo "Run mode selected:"  ${{ parameters.mode }}
           echo "Debug:"  ${{ parameters.debug }}
           echo "Pool:"  ${{ parameters.linux_pool }}
+          echo $(create_cluster)
         displayName: Display selected mode
+        condition: and(succeeded(), eq('${{ parameters.debug }}', true))
+
+    - ${{ if not(eq(parameters.mode, 'tests')) }}:
       - template: pipelines/azure/templates/steps/step.crux_clone.yaml@crux
       - template: pipelines/azure/templates/steps/step.tests_clone.yaml@crux
       - template: pipelines/azure/templates/steps/step.prepare_tests.yaml@crux
