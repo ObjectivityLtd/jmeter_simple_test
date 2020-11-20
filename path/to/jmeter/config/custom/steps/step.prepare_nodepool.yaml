@@ -6,10 +6,17 @@ steps:
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
-        nodepool_name=crux_$(Build.BuildID)
-        echo "Create dedicated pool - $nodepool_name"
-        az aks nodepool add --resource-group jmeter-group  --cluster-name k8  --name "$nodepoolName" --node-count 3 --node-vm-size Standard_D2_v2 --labels crux.usage=jmeter
+        local nodepool_name=crux$(Build.BuildID)
+        local cluster_name=k8
+        local resource_group=jmeter-group
+        local node_count=$(($(scale_up_replicas)+1)) # + 1 for the master
+        local node_size=Standard_D2_v2
+
+        echo "Create dedicated pool - $nodepool_name with $node_count nodes sized as $node_size"
+        az aks nodepool add --resource-group "$resource_group" --cluster-name "$cluster_name"  --name "$nodepoolName" --node-count "$node_count" --node-vm-size "$node_size" --labels crux.usage=jmeter
+
         echo "List pools"
-        az aks nodepool list -g jmeter-group --cluster-name k8 --output table
+        az aks nodepool list -g "$resource_group"--cluster-name "$cluster_name" --output table
+
         echo "Delete pool"
-        az aks nodepool delete -g jmeter-group --cluster-name k8 --name "$nodepoolName" --no-wait
+        az aks nodepool delete -g "$resource_group" --cluster-name "$cluster_name" --name "$nodepoolName" --no-wait
