@@ -1,0 +1,8 @@
+steps:
+  - task: AzureCLI@2
+    displayName: Prepare nodepool
+    inputs:
+      azureSubscription: $(armServiceConnection)
+      scriptType: bash
+      inlineScript: |
+        az aks nodepool list -g jmeter-group --cluster-name k8 --output table
