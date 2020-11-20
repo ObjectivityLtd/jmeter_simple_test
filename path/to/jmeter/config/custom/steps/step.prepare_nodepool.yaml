@@ -17,4 +17,4 @@ steps:
          echo "List pools"
          az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" --output table
          echo "Delete pool"
-         az aks nodepool delete -g "$resource_group" --cluster-name "$cluster_name" --name "$nodepoolName" --no-wait
+         az aks nodepool delete -g "$resource_group" --cluster-name "$cluster_name" --name "$nodepool_name" --no-wait
