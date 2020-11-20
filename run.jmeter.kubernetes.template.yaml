@@ -49,7 +49,7 @@ jobs:
         - template: pipelines/azure/templates/steps/step.create_cluster.yaml@crux
         - template: pipelines/azure/templates/steps/step.configure_cluster.yaml@crux
         - template: pipelines/azure/templates/steps/step.deploy_to_cluster.yaml@crux
-        - template: pipelines/azure/templates/steps/step.jmeter_tests.yam@crux
+        - template: pipelines/azure/templates/steps/step.jmeter_tests.yaml@crux
         - template: pipelines/azure/templates/steps/step.workbooks_upload.yaml@crux
         - template: pipelines/azure/templates/steps/step.archive_jmeter_report.yaml@crux
         - template: pipelines/azure/templates/steps/step.archive_jmeter_results.yaml@crux
