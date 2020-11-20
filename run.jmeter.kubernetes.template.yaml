@@ -46,4 +46,3 @@ jobs:
         - template: pipelines/azure/templates/steps/step.crux_clone.yaml@crux
         - template: pipelines/azure/templates/steps/step.tests_clone.yaml@crux
         - template: pipelines/azure/templates/steps/step.prepare_tests.yaml@crux
-        - template: pipelines/azure/templates/steps/step.pre_hook.yaml@crux
