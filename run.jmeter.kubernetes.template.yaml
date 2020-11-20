@@ -25,9 +25,9 @@ jobs:
     condition: not(eq(variables['jmeter_tests'], false))
     variables:
       crux.templates: pipelines/azure/templates
-    - template: $(crux.templates)/default.variables.yaml@crux
-      parameters:
-        mode: ${{ parameters.mode }}
+      - template: $(crux.templates)/default.variables.yaml@crux
+        parameters:
+          mode: ${{ parameters.mode }}
 
     steps:
 
