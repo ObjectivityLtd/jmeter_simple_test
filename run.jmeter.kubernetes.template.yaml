@@ -24,44 +24,45 @@ jobs:
     #load up default variables
     condition: not(eq(variables['jmeter_tests'], false))
     variables:
-      - template: pipelines/azure/templates/default.variables.yaml@crux
+      crux.templates: pipelines/azure/templates
+      - template: $(crux.templates)/default.variables.yaml@crux
         parameters:
           mode: ${{ parameters.mode }}
 
     steps:
 
       - ${{ if not(eq(parameters.mode, 'tests')) }}:
-        - template: pipelines/azure/templates/steps/step.crux_clone.yaml@crux
-        - template: pipelines/azure/templates/steps/step.tests_clone.yaml@crux
-        - template: pipelines/azure/templates/steps/step.prepare_tests.yaml@crux
-        - template: pipelines/azure/templates/steps/step.create_cluster.yaml@crux
-        - template: pipelines/azure/templates/steps/step.configure_cluster.yaml@crux
-        - template: pipelines/azure/templates/steps/step.deploy_to_cluster.yaml@crux
-        - template: pipelines/azure/templates/steps/step.jmeter_tests.yaml@crux
-        - template: pipelines/azure/templates/steps/step.workbooks_upload.yaml@crux
-        - template: pipelines/azure/templates/steps/step.archive_jmeter_report.yaml@crux
-        - template: pipelines/azure/templates/steps/step.archive_jmeter_results.yaml@crux
-        - template: pipelines/azure/templates/steps/step.archive_jmeter_log.yaml@crux
-        - template: pipelines/azure/templates/steps/step.archive_jmeter_errors.yaml@crux
-        - template: pipelines/azure/templates/steps/step.archive_jmeter_server_logs.yaml@crux
-        - template: pipelines/azure/templates/steps/step.junit.yaml@crux
-        - template: pipelines/azure/templates/steps/step.junit_publish.yaml@crux
-        - template: pipelines/azure/templates/steps/step.delete_cluster.yaml@crux
+        - template: $(crux.templates)/steps/step.crux_clone.yaml@crux
+        - template: $(crux.templates)/steps/step.tests_clone.yaml@crux
+        - template: $(crux.templates)/steps/step.prepare_tests.yaml@crux
+        - template: $(crux.templates)/steps/step.create_cluster.yaml@crux
+        - template: $(crux.templates)/steps/step.configure_cluster.yaml@crux
+        - template: $(crux.templates)/steps/step.deploy_to_cluster.yaml@crux
+        - template: $(crux.templates)/steps/step.jmeter_tests.yaml@crux
+        - template: $(crux.templates)/steps/step.workbooks_upload.yaml@crux
+        - template: $(crux.templates)/steps/step.archive_jmeter_report.yaml@crux
+        - template: $(crux.templates)/steps/step.archive_jmeter_results.yaml@crux
+        - template: $(crux.templates)/steps/step.archive_jmeter_log.yaml@crux
+        - template: $(crux.templates)/steps/step.archive_jmeter_errors.yaml@crux
+        - template: $(crux.templates)/steps/step.archive_jmeter_server_logs.yaml@crux
+        - template: $(crux.templates)/steps/step.junit.yaml@crux
+        - template: $(crux.templates)/steps/step.junit_publish.yaml@crux
+        - template: $(crux.templates)/steps/step.delete_cluster.yaml@crux
 
       - ${{ if eq(parameters.mode, 'tests') }}:
-        - template: pipelines/azure/templates/mocks/step.crux_clone.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.tests_clone.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.prepare_tests.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.create_cluster.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.configure_cluster.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.deploy_to_cluster.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.jmeter_tests.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.workbooks_upload.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.archive_jmeter_report.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.archive_jmeter_results.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.archive_jmeter_log.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.archive_jmeter_errors.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.archive_jmeter_server_logs.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.junit.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.junit_publish.yaml@crux
-        - template: pipelines/azure/templates/mocks/step.delete_cluster.yaml@crux
+        - template: $(crux.templates)/mocks/step.crux_clone.yaml@crux
+        - template: $(crux.templates)/mocks/step.tests_clone.yaml@crux
+        - template: $(crux.templates)/mocks/step.prepare_tests.yaml@crux
+        - template: $(crux.templates)/mocks/step.create_cluster.yaml@crux
+        - template: $(crux.templates)/mocks/step.configure_cluster.yaml@crux
+        - template: $(crux.templates)/mocks/step.deploy_to_cluster.yaml@crux
+        - template: $(crux.templates)/mocks/step.jmeter_tests.yaml@crux
+        - template: $(crux.templates)/mocks/step.workbooks_upload.yaml@crux
+        - template: $(crux.templates)/mocks/step.archive_jmeter_report.yaml@crux
+        - template: $(crux.templates)/mocks/step.archive_jmeter_results.yaml@crux
+        - template: $(crux.templates)/mocks/step.archive_jmeter_log.yaml@crux
+        - template: $(crux.templates)/mocks/step.archive_jmeter_errors.yaml@crux
+        - template: $(crux.templates)/mocks/step.archive_jmeter_server_logs.yaml@crux
+        - template: $(crux.templates)/mocks/step.junit.yaml@crux
+        - template: $(crux.templates)/mocks/step.junit_publish.yaml@crux
+        - template: $(crux.templates)/mocks/step.delete_cluster.yaml@crux
