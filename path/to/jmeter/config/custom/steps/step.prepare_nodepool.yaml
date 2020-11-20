@@ -4,5 +4,6 @@ steps:
     inputs:
       azureSubscription: $(armServiceConnection)
       scriptType: bash
+      scriptLocation: inlineScript
       inlineScript: |
         az aks nodepool list -g jmeter-group --cluster-name k8 --output table
