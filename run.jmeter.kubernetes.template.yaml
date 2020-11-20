@@ -69,3 +69,9 @@ jobs:
         - template: ${{ parameters.crux_templates }}/mocks/step.junit.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.junit_publish.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.delete_cluster.yaml@crux
+
+  #tests
+- template: ${{ parameters.crux_templates }}/tests/jobs/run_bats_modules_tests.yaml@crux
+- template: ${{ parameters.crux_templates }}/tests/jobs/run_pester_modules_tests.yaml@crux
+- template: ${{ parameters.crux_templates }}/tests/jobs/test_docker_images.yaml@crux
+- template: ${{ parameters.crux_templates }}/build/jobs/build_and_push_docker.yaml@crux
