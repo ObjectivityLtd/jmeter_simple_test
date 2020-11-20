@@ -44,6 +44,8 @@ jobs:
         - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
         - template: path/to/jmeter/config/custom/steps/step.download_secret_file.yaml
         - template: path/to/jmeter/config/custom/steps/step.create_nodepool.yaml
+          parameters:
+            mode: ${{ parameters.mode }}
         - template: ${{ parameters.crux_templates }}/steps/step.create_cluster.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.deploy_to_cluster.yaml@crux
@@ -57,6 +59,8 @@ jobs:
         - template: ${{ parameters.crux_templates }}/steps/step.junit.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.junit_publish.yaml@crux
         - template: path/to/jmeter/config/custom/steps/step.delete_nodepool.yaml
+          parameters:
+            mode: ${{ parameters.mode }}
         - template: ${{ parameters.crux_templates }}/steps/step.delete_cluster.yaml@crux
 
       #RUN on framework tests

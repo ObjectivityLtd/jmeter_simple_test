@@ -1,3 +1,5 @@
+parameters:
+  mode: jmeter
 steps:
   - ${{ if not(eq(parameters.mode,'jmeter_dynamic')) }}:
     - task: AzureCLI@2
