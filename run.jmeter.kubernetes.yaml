@@ -26,9 +26,6 @@ resources:
 
 
 parameters:
-- name: debug
-  type: boolean
-  default: false
 
 - name: mode
   default: jmeter_dynamic
@@ -87,7 +84,6 @@ jobs:
   - template: run.jmeter.kubernetes.template.yaml
     parameters:
       mode: ${{ parameters.mode }}
-      debug: ${{ parameters.debug }}
       linux_pool: microsoft_hosted
 #- template: pipelines/azure/templates/run.mode.selector.yaml@crux
 #  parameters:

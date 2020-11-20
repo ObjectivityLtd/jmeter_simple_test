@@ -8,11 +8,6 @@ parameters:
     type: string
     default: microsoft_hosted
 
-  - name: debug
-    displayName: 'Display additional diagnostics ?'
-    type: boolean
-    default: false
-
 jobs:
   - job: Experimental
     timeoutInMinutes: 8
@@ -34,15 +29,26 @@ jobs:
           mode: ${{ parameters.mode }}
 
     steps:
-      - bash: |
-          echo "Run mode selected:"  ${{ parameters.mode }}
-          echo "Debug:"  ${{ parameters.debug }}
-          echo "Pool:"  ${{ parameters.linux_pool }}
-          echo $(create_cluster)
-        displayName: Display selected mode
-        condition: and(succeeded(), eq('${{ parameters.debug }}', true))
 
       - ${{ if not(eq(parameters.mode, 'tests')) }}:
+        - template: pipelines/azure/templates/steps/step.crux_clone.yaml@crux
+        - template: pipelines/azure/templates/steps/step.tests_clone.yaml@crux
+        - template: pipelines/azure/templates/steps/step.prepare_tests.yaml@crux
+        - template: pipelines/azure/templates/steps/step.create_cluster.yaml@crux
+        - template: pipelines/azure/templates/steps/step.configure_cluster.yaml@crux
+        - template: pipelines/azure/templates/steps/step.deploy_to_cluster.yaml@crux
+        - template: pipelines/azure/templates/steps/step.jmeter_tests.yaml@crux
+        - template: pipelines/azure/templates/steps/step.workbooks_upload.yaml@crux
+        - template: pipelines/azure/templates/steps/step.archive_jmeter_report.yaml@crux
+        - template: pipelines/azure/templates/steps/step.archive_jmeter_results.yaml@crux
+        - template: pipelines/azure/templates/steps/step.archive_jmeter_log.yaml@crux
+        - template: pipelines/azure/templates/steps/step.archive_jmeter_errors.yaml@crux
+        - template: pipelines/azure/templates/steps/step.archive_jmeter_server_logs.yaml@crux
+        - template: pipelines/azure/templates/steps/step.junit.yaml@crux
+        - template: pipelines/azure/templates/steps/step.junit_publish.yaml@crux
+        - template: pipelines/azure/templates/steps/step.delete_cluster.yaml@crux
+
+      - ${{ if eq(parameters.mode, 'tests') }}:
         - template: pipelines/azure/templates/steps/step.crux_clone.yaml@crux
         - template: pipelines/azure/templates/steps/step.tests_clone.yaml@crux
         - template: pipelines/azure/templates/steps/step.prepare_tests.yaml@crux
