@@ -1,13 +1,14 @@
 steps:
-  - task: AzureCLI@2
-    displayName: Delete nodepool
-    inputs:
-      azureSubscription: $(armServiceConnection)
-      scriptType: bash
-      scriptLocation: inlineScript
-      inlineScript: |
-         nodepool_name=crux$(Build.BuildID)
-         cluster_name=k8
-         resource_group=jmeter-group
-         echo "Deleting pool ... "
-         az aks nodepool delete -g "$resource_group" --cluster-name "$cluster_name" --name "$nodepool_name" --no-wait
+  - ${{ if not(eq(parameters.mode,'jmeter_dynamic')) }}:
+    - task: AzureCLI@2
+      displayName: Delete nodepool
+      inputs:
+        azureSubscription: $(armServiceConnection)
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+           nodepool_name=crux$(Build.BuildID)
+           cluster_name=k8
+           resource_group=jmeter-group
+           echo "Deleting pool ... "
+           az aks nodepool delete -g "$resource_group" --cluster-name "$cluster_name" --name "$nodepool_name" --no-wait
