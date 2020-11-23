@@ -60,7 +60,7 @@ jobs:
         - template: ${{ parameters.crux_templates }}/steps/step.archive_jmeter_server_logs.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.junit.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.junit_publish.yaml@crux
-        - template: path/to/jmeter/config/custom/steps/step.delete_namespace.yaml
+        - template: ${{ parameters.crux_templates }}/steps/step.delete_namespace.yaml@crux
         - template: path/to/jmeter/config/custom/steps/step.delete_nodepool.yaml
           parameters:
             mode: ${{ parameters.mode }}
