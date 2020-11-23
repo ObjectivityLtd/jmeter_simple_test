@@ -12,7 +12,13 @@ steps:
         inlineScript: |
 
            nodepool_name=crux$(Build.BuildID)
-           cluster_name=k8
+            cluster_name=k8
+            if [ -z "$cname" ]; then
+              echo ""
+            else
+              cluster_name="$cname"
+            fi
+
            resource_group=jmeter-group
            node_count=$(($(scale_up_replicas)+1)) # + 1 for the master
            node_size=Standard_D2_v2
