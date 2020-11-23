@@ -3,7 +3,7 @@ parameters:
 steps:
   - ${{ if not(eq(parameters.mode,'jmeter_dynamic')) }}:
     - task: AzureCLI@2
-      displayName: Delete nodepool
+      displayName: Delete dedicated nodepool
       inputs:
         azureSubscription: $(armServiceConnection)
         scriptType: bash

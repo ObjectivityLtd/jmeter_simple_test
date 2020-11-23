@@ -1,9 +1,12 @@
 parameters:
   mode: jmeter
+  max_active_crux_nodes: 3
+  max_active_crux_pools: 2
+
 steps:
   - ${{ if not(eq(parameters.mode,'jmeter_dynamic')) }}:
     - task: AzureCLI@2
-      displayName: Prepare nodepool
+      displayName: Create dedicated nodepool
       inputs:
         azureSubscription: $(armServiceConnection)
         scriptType: bash
