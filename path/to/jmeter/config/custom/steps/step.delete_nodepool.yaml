@@ -14,3 +14,5 @@ steps:
            resource_group=jmeter-group
            echo "Deleting pool ... "
            az aks nodepool delete -g "$resource_group" --cluster-name "$cluster_name" --name "$nodepool_name" --no-wait
+
+           echo "Deleting namespace"

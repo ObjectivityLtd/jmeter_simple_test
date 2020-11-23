@@ -60,7 +60,7 @@ parameters:
 
 variables:
   #test execution environment & config
-  cluster_namespace: default
+  cluster_namespace: crux$(Build.BuildID)
   kubernetesServiceConnection: ${{ parameters.kubernetes_service_connection }}
   scale_up_replicas: ${{ parameters.jmeter_slaves }}
   data_dir: $(repoName)/${{ parameters.data_dir }}

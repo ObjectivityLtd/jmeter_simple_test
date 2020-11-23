@@ -27,3 +27,4 @@ steps:
            az aks nodepool add --resource-group "$resource_group" --cluster-name "$cluster_name"  --name "$nodepool_name" --node-count "$node_count" --node-vm-size "$node_size" --labels crux.usage=jmeter
            echo "Available pools: "
            az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" --output table
+
