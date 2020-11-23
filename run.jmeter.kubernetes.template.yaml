@@ -48,7 +48,7 @@ jobs:
         - template: path/to/jmeter/config/custom/steps/step.create_nodepool.yaml
           parameters:
            mode: ${{ parameters.mode }}
-        - template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
+        #- template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.create_namespace.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.deploy_to_cluster.yaml@crux
           parameters:
