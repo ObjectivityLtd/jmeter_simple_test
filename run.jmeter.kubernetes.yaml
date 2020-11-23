@@ -28,7 +28,7 @@ resources:
 parameters:
 
 - name: mode
-  default: jmeter_dynamic
+  default: jmeter
   values:
     - tests
     - jmeter
