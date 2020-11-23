@@ -49,6 +49,7 @@ jobs:
             max_active_crux_pools: 1
         - template: ${{ parameters.crux_templates }}/steps/step.create_cluster.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
+        - template: ${{ parameters.crux_templates }}/steps/step.create_namespace.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.deploy_to_cluster.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.jmeter_tests.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.workbooks_upload.yaml@crux
@@ -59,6 +60,7 @@ jobs:
         - template: ${{ parameters.crux_templates }}/steps/step.archive_jmeter_server_logs.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.junit.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.junit_publish.yaml@crux
+        - template: path/to/jmeter/config/custom/steps/step.delete_namespace.yaml
         - template: path/to/jmeter/config/custom/steps/step.delete_nodepool.yaml
           parameters:
             mode: ${{ parameters.mode }}
