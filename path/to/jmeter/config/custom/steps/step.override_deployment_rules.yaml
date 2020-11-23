@@ -1,0 +1,5 @@
+steps:
+  - bash: |
+      cp $(System.DefaultWorkingDirectory)/repos/$(repoName)/path/to/jmeter/config/custom/deployment/* $(System.DefaultWorkingDirectory)/kubernetes/config/deployments/
+      ls -alh  $(System.DefaultWorkingDirectory)/kubernetes/config/deployments/
+    displayName: Overrride deployment rules
