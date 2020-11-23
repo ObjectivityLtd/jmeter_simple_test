@@ -25,7 +25,12 @@ steps:
            echo "Create dedicated pool on $cluster_name - $nodepool_name with $node_count nodes sized as $node_size"
            echo "az aks nodepool add --resource-group $resource_group --cluster-name $cluster_name  --name $nodepool_name --node-count $node_count --node-vm-size $node_size --labels crux.usage=jmeter"
            az aks nodepool add --resource-group "$resource_group" --cluster-name "$cluster_name"  --name "$nodepool_name" --node-count "$node_count" --node-vm-size "$node_size" --labels crux.usage=jmeter
-           echo $?
+
            echo "Available pools: "
            az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" --output table
+
+           if az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" --output table | grep "$nodepool_name" ; then
+              echo "##[error] Pool has not been successfully created. Lacking capacity?"
+              echo "##vso[task.complete result=Failed;]DONE"
+           fi
 
