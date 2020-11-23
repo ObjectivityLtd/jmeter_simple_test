@@ -52,6 +52,8 @@ jobs:
         - template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.create_namespace.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.deploy_to_cluster.yaml@crux
+          parameters:
+            timeoutInMinutes: 1
         - template: ${{ parameters.crux_templates }}/steps/step.jmeter_tests.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.workbooks_upload.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.archive_jmeter_report.yaml@crux
