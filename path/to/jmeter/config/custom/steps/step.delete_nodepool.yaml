@@ -12,6 +12,11 @@ steps:
         inlineScript: |
            nodepool_name=crux$(Build.BuildID)
            cluster_name=k8
+           if [ -z "$cname" ]; then
+            echo ""
+           else
+            cluster_name="$cname"
+           fi
            resource_group=jmeter-group
-           echo "Deleting pool ... "
+           echo "Deleting pool on $cluster_name... "
            az aks nodepool delete -g "$resource_group" --cluster-name "$cluster_name" --name "$nodepool_name" --no-wait
