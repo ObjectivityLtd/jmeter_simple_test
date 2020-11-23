@@ -1,6 +1,5 @@
 parameters:
   mode: jmeter
-  max_active_crux_pools: 2
 
 steps:
   - ${{ if not(eq(parameters.mode,'jmeter_dynamic')) }}:
@@ -28,7 +27,7 @@ steps:
 
            echo "Available pools: "
            az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" --output table
-
+           echo "-----------------------"
            if az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" --output table | grep "$nodepool_name" ; then
               echo "##[info] Pool has been created usccessfully."
            else
