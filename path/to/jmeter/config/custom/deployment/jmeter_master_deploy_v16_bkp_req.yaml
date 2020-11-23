@@ -23,6 +23,10 @@ spec:
                     operator: In
                     values:
                       - jmeter
+                  - key: agentpool
+                    operator: In
+                    values:
+                      - {{agentpool}}
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 1
