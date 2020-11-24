@@ -37,7 +37,7 @@ jobs:
     steps:
 
     #DYNAMIC or STATIC
-      - ${{ if ne(eq(parameters.mode, 'tests')) }}:
+      - ${{ if not(eq(parameters.mode, 'tests')) }}:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
