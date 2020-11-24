@@ -96,7 +96,7 @@ jobs:
           parameters:
             mode: ${{ parameters.mode }}
         - template: ${{ parameters.crux_templates }}/steps/step.delete_cluster.yaml@crux
-          -
+
       #RUN on framework tests
       - ${{ if eq(parameters.mode, 'tests') }}:
         - template: ${{ parameters.crux_templates }}/mocks/step.crux_clone.yaml@crux
