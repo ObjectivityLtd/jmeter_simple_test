@@ -36,8 +36,8 @@ jobs:
 
     steps:
 
-    #DYNAMIC
-      - ${{ if eq(parameters.mode, 'jmeter_dynamic') }}:
+    #DYNAMIC or STATIC
+      - ${{ if ne(eq(parameters.mode, 'tests')) }}:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
@@ -47,37 +47,6 @@ jobs:
         - template: path/to/jmeter/config/custom/steps/step.create_nodepool.yaml
           parameters:
            mode: ${{ parameters.mode }}
-        - template: ${{ parameters.crux_templates }}/steps/step.create_namespace.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.deploy_to_cluster.yaml@crux
-          parameters:
-            timeoutInMinutes: 4
-        - template: ${{ parameters.crux_templates }}/steps/step.jmeter_tests.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.workbooks_upload.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.archive_jmeter_report.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.archive_jmeter_results.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.archive_jmeter_log.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.archive_jmeter_errors.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.archive_jmeter_server_logs.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.junit.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.junit_publish.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.delete_namespace.yaml@crux
-        - template: path/to/jmeter/config/custom/steps/step.delete_nodepool.yaml
-          parameters:
-            mode: ${{ parameters.mode }}
-        - template: ${{ parameters.crux_templates }}/steps/step.delete_cluster.yaml@crux
-
-      #STATIC
-      - ${{ if eq(parameters.mode, 'jmeter') }}:
-        - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
-        - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
-        - template: path/to/jmeter/config/custom/steps/step.download_secret_file.yaml
-        - template: path/to/jmeter/config/custom/steps/step.override_deployment_rules.yaml
-        - template: ${{ parameters.crux_templates }}/steps/step.create_cluster.yaml@crux
-        - template: path/to/jmeter/config/custom/steps/step.create_nodepool.yaml
-          parameters:
-            mode: ${{ parameters.mode }}
-        - template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.create_namespace.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.deploy_to_cluster.yaml@crux
           parameters:
