@@ -75,6 +75,7 @@ jobs:
         - template: ${{ parameters.crux_templates }}/mocks/step.prepare_tests.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.create_cluster.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.configure_cluster.yaml@crux
+        - template: ${{ parameters.crux_templates }}/mocks/step.create_namespace.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.deploy_to_cluster.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.jmeter_tests.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.workbooks_upload.yaml@crux
@@ -85,6 +86,7 @@ jobs:
         - template: ${{ parameters.crux_templates }}/mocks/step.archive_jmeter_server_logs.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.junit.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.junit_publish.yaml@crux
+        - template: ${{ parameters.crux_templates }}/mocks/step.delete_namespace.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.delete_cluster.yaml@crux
 
   #RUN on framework tests

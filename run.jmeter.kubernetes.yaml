@@ -72,6 +72,7 @@ variables:
   repoName: jmeter_simple_test
   cruxRepoName: crux
   scenario: $(repoName)/${{ parameters.jmx }}
+  stepTimeout: 5
 
   #parameters of cluster if to be created (jmeter_dynamic)
   armServiceConnection: ${{ parameters.arm_service_connection }}
