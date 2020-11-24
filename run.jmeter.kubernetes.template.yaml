@@ -36,7 +36,7 @@ jobs:
 
     steps:
 
-    #RUN Jmeter
+    #DYNAMIC
       - ${{ if eq(parameters.mode, 'jmeter_dynamic') }}:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
@@ -67,7 +67,7 @@ jobs:
         - template: ${{ parameters.crux_templates }}/steps/step.delete_cluster.yaml@crux
 
       #STATIC
-      ${{ if eq(parameters.mode, 'jmeter') }}:
+      - ${{ if eq(parameters.mode, 'jmeter') }}:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
