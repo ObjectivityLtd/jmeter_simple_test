@@ -16,6 +16,10 @@ parameters:
     type: string
     default: 60
 
+  - name: step_timeout
+    type: string
+    default: 2c
+
 jobs:
   - job: Jmeter
     timeoutInMinutes: ${{ parameters.crux_job_timeout }}
