@@ -36,7 +36,7 @@ jobs:
 
     steps:
 
-    #DYNAMIC or STATIC
+    #DYNAMIC
       - ${{ if not(eq(parameters.mode, 'tests')) }}:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
@@ -47,6 +47,7 @@ jobs:
         - template: path/to/jmeter/config/custom/steps/step.create_nodepool.yaml
           parameters:
            mode: ${{ parameters.mode }}
+        - template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.create_namespace.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.deploy_to_cluster.yaml@crux
           parameters:
@@ -65,6 +66,7 @@ jobs:
           parameters:
             mode: ${{ parameters.mode }}
         - template: ${{ parameters.crux_templates }}/steps/step.delete_cluster.yaml@crux
+
 
       #RUN on framework tests
       - ${{ if eq(parameters.mode, 'tests') }}:
