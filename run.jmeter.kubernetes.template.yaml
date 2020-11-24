@@ -46,6 +46,8 @@ jobs:
           parameters:
             timeoutInMinutes: {{ parameters.step_timeout }}
         - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
+          parameters:
+            timeoutInMinutes: {{ parameters.step_timeout }}
         - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
         - template: path/to/jmeter/config/custom/steps/step.download_secret_file.yaml
         - template: path/to/jmeter/config/custom/steps/step.override_deployment_rules.yaml

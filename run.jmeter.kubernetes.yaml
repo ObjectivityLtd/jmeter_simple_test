@@ -87,4 +87,4 @@ jobs:
       mode: ${{ parameters.mode }}
       linux_pool: microsoft_hosted
       crux_job_timeout: 15
-      step_timeout: 5
+      step_timeout: 2
