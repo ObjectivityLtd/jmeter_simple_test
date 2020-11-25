@@ -39,7 +39,10 @@ jobs:
         mode: ${{ parameters.mode }}
 
     steps:
-
+    #Validation
+      - ${{ if and(eq(parameters.mode, 'jmeter_dynamic')), parameters.arm_connection) }}:
+        bash: |
+          echo "a"
     #DYNAMIC
       - ${{ if not(eq(parameters.mode, 'tests')) }}:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
