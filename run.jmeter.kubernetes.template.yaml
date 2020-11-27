@@ -20,10 +20,6 @@ parameters:
     type: string
     default: 2
 
-  - name: armServiceConnection
-    type: string
-    default: _
-
 jobs:
   - job: Jmeter
     timeoutInMinutes: ${{ parameters.crux_job_timeout }}
@@ -44,14 +40,16 @@ jobs:
 
     steps:
     #Validation
-      - ${{ if ne(parameters.mode, 'tests') }}:
+      - ${{ if ne(parameters.mode, 'skipValidation') }}:
         - bash: |
 
             check_arm_connection=false
             check_k8_connection=false
             check_dockerhub_connection=false
             link="https://github.com/ObjectivityLtd/crux/wiki/CRUX-pipeline-requirements"
+
             echo "You have chosen to run CRUX in '${{ parameters.mode}}' mode."
+
             if [ "${{ parameters.mode}}" == 'jmeter' ];then
               check_k8_connection=true
             elif [ "${{ parameters.mode}}" == 'jmeter_dynamic' ];then
@@ -59,13 +57,13 @@ jobs:
             elif [ "${{ parameters.mode}}" == 'tests' ];then
               check_dockerhub_connection=true
             else
-              echo "##[error] Unrecognized mode. Use one of jmeter|jmeter_dynamic|tests"
+              echo "##[error] Unrecognized mode. Use one of jmeter|jmeter_dynamic|tests. [$link]"
               echo "##vso[task.complete result=Failed]current operation"
             fi
 
             if [ "$check_arm_connection" == "true" ];then
                 if [ "$(armServiceConnection)" == "_" ];then
-                  message="ARM Connection is set to default '$(armServiceConnection)'. Please create a correct ARM Connection to your resource group and update your pipeline"
+                  message="ARM Connection is set to default '$(armServiceConnection)'. Please create a correct ARM Connection to your resource group and update your pipeline."
                   echo "##vso[task.logissue type=error]$message [$link]"
                   exit 1
                 else
@@ -75,13 +73,14 @@ jobs:
 
             if [ "$check_k8_connection" == "true" ];then
                 if [ "$(kubernetesServiceConnection)" == "_" ];then
-                  message="ARM Connection is set to default '$(armServiceConnection)'. Please create a correct ARM connection to yoru resource group and update your pipeline"
+                  message="Kubernetes Service Connection is set to default '$(kubernetesServiceConnection)'. Please create a correct connection to your cluster and update your pipeline."
                   echo "##vso[task.logissue type=error]$message [$link]"
                   exit 1
                 else
                   echo "##[command] OK"
                 fi
             fi
+
           displayName: Pipeline Configuration Requirements Check
 
     #DYNAMIC

@@ -88,4 +88,3 @@ jobs:
       linux_pool: microsoft_hosted
       crux_job_timeout: 15
       step_timeout: 2
-      armServiceConnection: ${{ parameters.arm_service_connection }}
