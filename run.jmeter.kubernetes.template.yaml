@@ -44,10 +44,19 @@ jobs:
 
     steps:
     #Validation
-      - ${{ if and(eq(parameters.mode, 'jmeter_dynamic'), parameters.arm_connection) }}:
+     # - ${{ if and(eq(parameters.mode, 'jmeter_dynamic'), parameters.arm_connection) }}:
+        displayName: Pipeline Configuration Requirements Check
         bash: |
-          echo "ARM: $(armServiceConnection)"
-          echo "K8: $(kubernetesServiceConnection)"
+          if [ "$(armServiceConnection)" == "_" ];then
+              echo "ARM Connection is set to default '$(armServiceConnection)'. Please create a correct ARM connection to yoru resource group and update your pipeline. FAIL "
+          else
+              echo "ARM Connection is set to $(armServiceConnection). PASS "
+          fi
+          echo "##vso[task.complete result=Succeeded;]DONE"
+          echo "##vso[task.complete result=Succeeded;]DONE"
+
+          echo "ARM service connection: $(armServiceConnection)"
+          echo "K8 service connection: $(kubernetesServiceConnection)"
           echo "Mode: ${{ parameters.mode}}"
 
     #DYNAMIC
