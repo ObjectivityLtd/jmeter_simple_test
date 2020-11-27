@@ -40,9 +40,12 @@ jobs:
 
     steps:
     #Validation
-      - ${{ if and(eq(parameters.mode, 'jmeter_dynamic')), parameters.arm_connection) }}:
+      - ${{ if and(eq(parameters.mode, 'jmeter_dynamic'), parameters.arm_connection) }}:
         bash: |
-          echo "a"
+          echo "ARM: $(armServiceConnection)"
+          echo "K8: $(kubernetesServiceConnection)"
+          echo "Mode: ${{ parameters.mode}}"
+
     #DYNAMIC
       - ${{ if not(eq(parameters.mode, 'tests')) }}:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
