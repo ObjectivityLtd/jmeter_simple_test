@@ -57,10 +57,10 @@ jobs:
             elif [ "${{ parameters.mode}}" == 'jmeter_dynamic' ];then
               check_arm_connection=true
             elif [ "${{ parameters.mode}}" == 'tests' ];then
+              check_dockerhub_connection=true
+            else
               echo "##[error] Unrecognized mode. Use one of jmeter|jmeter_dynamic|tests"
               echo "##vso[task.complete result=Failed]current operation"
-            else
-
             fi
 
             if [ "$(check_arm_connection)" == "true" ];then
