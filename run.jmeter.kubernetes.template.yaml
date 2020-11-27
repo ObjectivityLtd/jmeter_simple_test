@@ -52,9 +52,9 @@ jobs:
             check_dockerhub_connection=false
 
             echo "You have chosen to run CRUX in '${{ parameters.mode}}' mode."
-            if [ "${{ parameters.mode}}" == 'jmeter' ]:then
+            if [ "${{ parameters.mode}}" == 'jmeter' ];then
               check_k8_connection=true
-            elif [ "${{ parameters.mode}}" == 'jmeter_dynamic' ]:then
+            elif [ "${{ parameters.mode}}" == 'jmeter_dynamic' ];then
               check_arm_connection=true
             elif [ "${{ parameters.mode}}" == 'tests' ];then
               echo "##[error] Unrecognized mode. Use one of jmeter|jmeter_dynamic|tests"
