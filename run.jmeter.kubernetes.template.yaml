@@ -53,54 +53,9 @@ jobs:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
-
-    #Validation
-      - ${{ if ne(parameters.mode, 'skipValidation') }}:
-          - template: ${{ parameters.crux_templates }}/steps/step.validate_configuration.yaml@crux
-            parameters:
-              mode: ${{ parameters.mode}}
-      - ${{ if ne('skipValidation', 'skipValidation') }}:
-        - bash: |
-            check_arm_connection=false
-            check_k8_connection=false
-            check_dockerhub_connection=false
-            link="https://github.com/ObjectivityLtd/crux/wiki/CRUX-pipeline-requirements"
-
-            echo "You have chosen to run CRUX in '${{ parameters.mode}}' mode."
-            if [ "${{ parameters.mode}}" == 'jmeter' ];then
-              check_k8_connection=true
-            elif [ "${{ parameters.mode}}" == 'jmeter_dynamic' ];then
-              check_arm_connection=true
-            elif [ "${{ parameters.mode}}" == 'jmeter_with_dynamic_pools' ];then
-              check_arm_connection=true
-              check_k8_connection=true
-            elif [ "${{ parameters.mode}}" == 'tests' ];then
-              check_dockerhub_connection=true
-            else
-              echo "##[error] Unrecognized mode. Use one of jmeter|jmeter_dynamic|tests. [$link]"
-              echo "##vso[task.complete result=Failed]current operation"
-            fi
-
-            if [ "$check_arm_connection" == "true" ];then
-                if [ "$(armServiceConnection)" == "_" ];then
-                  message="ARM Connection is set to default '$(armServiceConnection)'. Please create a correct ARM Connection to your resource group and update your pipeline."
-                  echo "##vso[task.logissue type=error]$message [$link]"
-                  exit 1
-                else
-                  echo "##[command] OK"
-                fi
-            fi
-
-            if [ "$check_k8_connection" == "true" ];then
-                if [ "$(kubernetesServiceConnection)" == "_" ];then
-                  message="Kubernetes Service Connection is set to default '$(kubernetesServiceConnection)'. Please create a correct connection to your cluster and update your pipeline."
-                  echo "##vso[task.logissue type=error]$message [$link]"
-                  exit 1
-                else
-                  echo "##[command] OK"
-                fi
-            fi
-          displayName: Pipeline Configuration Requirements Check
+        - template: ${{ parameters.crux_templates }}/steps/step.validate_configuration.yaml@crux
+          parameters:
+            mode: ${{ parameters.mode}}
 
     #STATIC mode without node pool creation
       - ${{ if and(eq(parameters.mode, 'jmeter'),ne(parameters.kubernetes_service_connection,'_')) }}:
