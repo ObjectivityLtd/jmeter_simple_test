@@ -44,7 +44,7 @@ jobs:
 
     steps:
     #Validation
-      - ${{ if (ne(parameters.mode, 'tests') }}:
+      - ${{ if ne(parameters.mode, 'tests') }}:
         - bash: |
             if [ "$(armServiceConnection)" == "_" ];then
                 echo "ARM Connection is set to default '$(armServiceConnection)'. Please create a correct ARM connection to yoru resource group and update your pipeline. FAIL "
