@@ -54,6 +54,9 @@ jobs:
               check_k8_connection=true
             elif [ "${{ parameters.mode}}" == 'jmeter_dynamic' ];then
               check_arm_connection=true
+            elif [ "${{ parameters.mode}}" == 'jmeter_with_dynamic_pools' ];then
+              check_arm_connection=true
+              check_k8_connection=true
             elif [ "${{ parameters.mode}}" == 'tests' ];then
               check_dockerhub_connection=true
             else

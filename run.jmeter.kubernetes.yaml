@@ -33,6 +33,7 @@ parameters:
     - tests
     - jmeter
     - jmeter_dynamic
+    - jmeter_with_dynamic_pools
 
 - name: data_dir
   type: string
