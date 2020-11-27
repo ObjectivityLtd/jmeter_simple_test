@@ -24,10 +24,10 @@ parameters:
     type: string
     default: 2
 
-  - name: kubernetes_service_connection
+  - name: kubernetes_service_connection #used on compile time
     default: _
 
-  - name: arm_service_connection
+  - name: arm_service_connection #used on compile time
     default: _
 
 jobs:
