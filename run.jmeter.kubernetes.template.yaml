@@ -47,7 +47,7 @@ jobs:
           echo "Mode: ${{ parameters.mode}}"
 
     #DYNAMIC
-      - ${{ if and(ne(parameters.mode, 'tests'),ne(variables.armServiceConnection,'_')) }}:
+      - ${{ if and(ne(parameters.mode, 'tests'),ne(parameters.armServiceConnection,'_')) }}:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
           parameters:
             timeoutInMinutes: ${{ parameters.step_timeout }}
