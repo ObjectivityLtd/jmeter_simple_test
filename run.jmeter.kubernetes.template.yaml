@@ -12,6 +12,10 @@ parameters:
     type: string
     default: pipelines/azure/templates
 
+  - name: CUSTOM_crux_templates
+    type: string
+    default: path/to/jmeter/config/custom
+
   - name: crux_job_timeout
     type: string
     default: 60
@@ -42,14 +46,12 @@ jobs:
     #Validation
       - ${{ if ne(parameters.mode, 'skipValidation') }}:
         - bash: |
-
             check_arm_connection=false
             check_k8_connection=false
             check_dockerhub_connection=false
             link="https://github.com/ObjectivityLtd/crux/wiki/CRUX-pipeline-requirements"
 
             echo "You have chosen to run CRUX in '${{ parameters.mode}}' mode."
-
             if [ "${{ parameters.mode}}" == 'jmeter' ];then
               check_k8_connection=true
             elif [ "${{ parameters.mode}}" == 'jmeter_dynamic' ];then
@@ -83,11 +85,10 @@ jobs:
                   echo "##[command] OK"
                 fi
             fi
-
           displayName: Pipeline Configuration Requirements Check
 
     #DYNAMIC
-      - ${{ if ne(parameters.mode, 'tests') }}:
+      - ${{ if and(ne(parameters.mode, 'tests'),ne(parameters.armServiceConnection,'_')) }}:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
           parameters:
             timeoutInMinutes: ${{ parameters.step_timeout }}
@@ -95,10 +96,10 @@ jobs:
           parameters:
             timeoutInMinutes: ${{ parameters.step_timeout }}
         - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
-        - template: path/to/jmeter/config/custom/steps/step.download_secret_file.yaml
-        - template: path/to/jmeter/config/custom/steps/step.override_deployment_rules.yaml
+        - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.download_secret_file.yaml
+        - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.override_deployment_rules.yaml
         - template: ${{ parameters.crux_templates }}/steps/step.create_cluster.yaml@crux
-        - template: path/to/jmeter/config/custom/steps/step.create_nodepool.yaml
+        - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.create_nodepool.yaml
           parameters:
            mode: ${{ parameters.mode }}
         - template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
@@ -116,7 +117,7 @@ jobs:
         - template: ${{ parameters.crux_templates }}/steps/step.junit.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.junit_publish.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.delete_namespace.yaml@crux
-        - template: path/to/jmeter/config/custom/steps/step.delete_nodepool.yaml
+        - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.delete_nodepool.yaml
           parameters:
             mode: ${{ parameters.mode }}
         - template: ${{ parameters.crux_templates }}/steps/step.delete_cluster.yaml@crux
