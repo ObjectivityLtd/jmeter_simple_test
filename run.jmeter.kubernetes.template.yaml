@@ -49,9 +49,10 @@ jobs:
         mode: ${{ parameters.mode }}
 
     steps:
-      - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
-      - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
-      - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
+      - ${{ if ne(parameters.mode, 'tests') }}:
+        - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
+        - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
+        - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
 
     #Validation
       - ${{ if ne(parameters.mode, 'skipValidation') }}:
@@ -103,9 +104,6 @@ jobs:
 
     #STATIC mode without node pool creation
       - ${{ if and(eq(parameters.mode, 'jmeter'),ne(parameters.kubernetes_service_connection,'_')) }}:
-          - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
-          - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
-          - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.download_secret_file.yaml
           - template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.create_namespace.yaml@crux
@@ -122,9 +120,6 @@ jobs:
           - template: ${{ parameters.crux_templates }}/steps/step.delete_namespace.yaml@crux
 
       - ${{ if and(eq(parameters.mode, 'jmeter_with_dynamic_pools'),ne(parameters.kubernetes_service_connection,'_'),ne(parameters.arm_service_connection,'_')) }}:
-          - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
-          - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
-          - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.download_secret_file.yaml
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.override_deployment_rules.yaml
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.create_nodepool.yaml
@@ -144,9 +139,6 @@ jobs:
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.delete_nodepool.yaml
 
       - ${{ if and(eq(parameters.mode, 'jmeter_dynamic'),ne(parameters.arm_service_connection,'_')) }}:
-          - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
-          - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
-          - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.download_secret_file.yaml
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.override_deployment_rules.yaml
           - template: ${{ parameters.crux_templates }}/steps/step.create_cluster.yaml@crux
