@@ -51,6 +51,10 @@ jobs:
     steps:
     #Validation
       - ${{ if ne(parameters.mode, 'skipValidation') }}:
+          - template: ${{ parameters.crux_templates }}/steps/step.validate_configuration.yaml@crux
+            parameters:
+              - mode: {{ parameters.mode}}
+      - ${{ if ne('skipValidation', 'skipValidation') }}:
         - bash: |
             check_arm_connection=false
             check_k8_connection=false
