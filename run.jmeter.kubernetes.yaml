@@ -51,12 +51,12 @@ parameters:
   type: string
 
 - name: kubernetes_service_connection
-  default: k8
+  default: _
   type: string
 
-#- name: arm_service_connection
-#  default: mygroup
-#  type: string
+- name: arm_service_connection
+  default: _
+  type: string
 
 variables:
   #test execution environment & config
@@ -75,7 +75,7 @@ variables:
 
 
   #parameters of cluster if to be created (jmeter_dynamic)
-  armServiceConnection: ${{ parameters.arm_service_connection }}
+  #armServiceConnection: ${{ parameters.arm_service_connection }}
   clusterNodeSize: Standard_D2_v2
   clusterNodeNumber: 2
   rgroup: jmeter-group
