@@ -31,8 +31,8 @@ parameters:
   default: jmeter
   values:
     - jmeter
-    - jmeter_dynamic
     - jmeter_with_dynamic_pools
+    - jmeter_dynamic
     - tests
 
 - name: data_dir
