@@ -51,6 +51,8 @@ jobs:
     steps:
       - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
       - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
+      - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
+
     #Validation
       - ${{ if ne(parameters.mode, 'skipValidation') }}:
           - template: ${{ parameters.crux_templates }}/steps/step.validate_configuration.yaml@crux
