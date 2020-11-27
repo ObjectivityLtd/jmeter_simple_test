@@ -20,6 +20,10 @@ parameters:
     type: string
     default: 2
 
+  - name: armServiceConnection
+    type: string
+    default: _
+
 jobs:
   - job: Jmeter
     timeoutInMinutes: ${{ parameters.crux_job_timeout }}
