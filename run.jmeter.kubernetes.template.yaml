@@ -112,7 +112,6 @@ jobs:
           - template: ${{ parameters.crux_templates }}/steps/step.junit.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.junit_publish.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.delete_namespace.yaml@crux
-          - template: ${{ parameters.crux_templates }}/steps/step.delete_cluster.yaml@crux
 
       - ${{ if and(eq(parameters.mode, 'jmeter_with_dynamic_pools'),ne(parameters.kubernetes_service_connection,'_'),ne(parameters.arm_service_connection,'_')) }}:
           - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
