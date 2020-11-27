@@ -24,6 +24,12 @@ parameters:
     type: string
     default: 2
 
+  - name: kubernetes_service_connection
+    default: _
+
+  - name: arm_service_connection
+    default: _
+
 jobs:
   - job: Jmeter
     timeoutInMinutes: ${{ parameters.crux_job_timeout }}
@@ -88,7 +94,7 @@ jobs:
           displayName: Pipeline Configuration Requirements Check
 
     #DYNAMIC
-      - ${{ if and(ne(parameters.mode, 'tests'),ne(parameters.armServiceConnection,'_')) }}:
+      - ${{ if and(ne(parameters.mode, 'tests'),ne(parameters.arm_service_connection,'_')) }}:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
           parameters:
             timeoutInMinutes: ${{ parameters.step_timeout }}

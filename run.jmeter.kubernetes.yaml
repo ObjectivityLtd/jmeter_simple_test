@@ -87,5 +87,7 @@ jobs:
     parameters:
       mode: ${{ parameters.mode }}
       linux_pool: microsoft_hosted
+      arm_service_connection: ${{ parameters.arm_service_connection }
+      kubernetes_service_connection: ${{ parameters.kubernetes_service_connection }}
       crux_job_timeout: 15
       step_timeout: 2
