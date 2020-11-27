@@ -30,10 +30,10 @@ parameters:
 - name: mode
   default: jmeter
   values:
-    - tests
     - jmeter
     - jmeter_dynamic
     - jmeter_with_dynamic_pools
+    - tests
 
 - name: data_dir
   type: string
