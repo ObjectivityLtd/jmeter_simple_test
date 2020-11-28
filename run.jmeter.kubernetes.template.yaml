@@ -59,6 +59,7 @@ jobs:
 
     #STATIC mode without node pool creation
       - ${{ if and(eq(parameters.mode, 'jmeter'),ne(parameters.kubernetes_service_connection,'_')) }}:
+          - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.download_secret_file.yaml
           - template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.deploy_to_cluster.yaml@crux
