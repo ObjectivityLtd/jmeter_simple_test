@@ -7,8 +7,7 @@ create_nodepool() {
    local scale_up_replicas=$6
    local node_count=$(($scale_up_replicas+1)) # + 1 for the master
    local node_size=$7
-   local cname_var=$8
-   local cname=${!cname_var} #expand variable
+   local cname=$8
 
    if [ -z "$cname" ]; then
     echo "##[info] Dynamically created cluster not available. Using static cluster."

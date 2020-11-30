@@ -78,6 +78,8 @@ jobs:
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.download_secret_file.yaml
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.override_deployment_rules.yaml
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.create_nodepool.yaml
+            parameters:
+              mode: ${{ parameters.mode }}
           - template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.deploy_to_cluster.yaml@crux
@@ -100,6 +102,8 @@ jobs:
             parameters:
               timeoutInMinutes: 7
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.create_nodepool.yaml
+            parameters:
+              mode: ${{ parameters.mode }}
           - template: ${{ parameters.crux_templates }}/steps/step.create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.deploy_to_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.jmeter_tests.yaml@crux
