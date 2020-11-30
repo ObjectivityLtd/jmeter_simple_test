@@ -130,7 +130,7 @@ jobs:
         - template: ${{ parameters.crux_templates }}/mocks/step.tests_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.prepare_tests.yaml@crux
         - template: ${{ parameters.crux_templates }}/mocks/step.create_cluster.yaml@crux
-        - template: ${{ parameters.crux_templates }}}/mocks/step.create_nodepool.yaml@crux
+        - template: ${{ parameters.crux_templates }}/mocks/step.create_nodepool.yaml@crux
           parameters:
             mode: ${{ parameters.mode }}
         - template: ${{ parameters.crux_templates }}/mocks/step.configure_cluster.yaml@crux
