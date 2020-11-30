@@ -8,6 +8,7 @@ delete_nodepool() {
    if [ -z "$cname" ]; then
     echo "##[info] Dynamically created cluster not available. Using static cluster."
    else
+    echo "##[info] Using dynamically created cluster named $name"
     cluster_name="$cname"
    fi
    echo "Deleting pool on $cluster_name... "
