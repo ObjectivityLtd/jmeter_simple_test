@@ -94,6 +94,8 @@ jobs:
           - template: ${{ parameters.crux_templates }}/steps/step.junit_publish.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.delete_namespace.yaml@crux
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.delete_nodepool.yaml
+            parameters:
+              mode: ${{ parameters.mode }}
 
       - ${{ if and(eq(parameters.mode, 'jmeter_dynamic'),ne(parameters.arm_service_connection,'_')) }}:
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.download_secret_file.yaml
@@ -117,6 +119,8 @@ jobs:
           - template: ${{ parameters.crux_templates }}/steps/step.junit_publish.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.delete_namespace.yaml@crux
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.delete_nodepool.yaml
+            parameters:
+              mode: ${{ parameters.mode }}
           - template: ${{ parameters.crux_templates }}/steps/step.delete_cluster.yaml@crux
 
 
