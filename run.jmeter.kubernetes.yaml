@@ -28,7 +28,7 @@ resources:
 parameters:
 
 - name: mode
-  default: jmeter
+  default: jmeter_with_dynamic_pools
   values:
     - jmeter
     - jmeter_with_dynamic_pools
@@ -52,11 +52,11 @@ parameters:
   type: string
 
 - name: kubernetes_service_connection
-  default: _
+  default: k8
   type: string
 
 - name: arm_service_connection
-  default: _
+  default: mygroup
   type: string
 
 variables:
