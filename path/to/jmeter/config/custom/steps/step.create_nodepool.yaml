@@ -1,10 +1,12 @@
 parameters:
   mode: jmeter
+  timeoutInMinutes: 5
 
 steps:
   - ${{ if and(ne(parameters.mode,'tests'),ne(parameters.mode,'jmeter_dynamic')) }}:
     - task: AzureCLI@2
       displayName: Create dedicated nodepool
+      timeoutInMinutes: ${{ parameters.timeoutInMinutes }}
       inputs:
         azureSubscription: $(armServiceConnection)
         scriptType: bash
@@ -15,6 +17,7 @@ steps:
   - ${{ if and(ne(parameters.mode,'tests'),eq(parameters.mode,'jmeter_dynamic')) }}: #dynamic cluster name cname becomes available
       - task: AzureCLI@2
         displayName: Create dedicated nodepool
+        timeoutInMinutes: ${{ parameters.timeoutInMinutes }}
         inputs:
           azureSubscription: $(armServiceConnection)
           scriptType: bash
