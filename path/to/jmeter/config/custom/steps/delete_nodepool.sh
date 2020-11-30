@@ -4,8 +4,9 @@ delete_nodepool() {
    local resource_group=$3
    local cname_var=$4
    local cname=${!cname_var} #expand variable
+
    if [ -z "$cname" ]; then
-    :
+    echo "##[info] Dynamically created cluster not available. Using static cluster."
    else
     cluster_name="$cname"
    fi

@@ -11,7 +11,7 @@ create_nodepool() {
    local cname=${!cname_var} #expand variable
 
    if [ -z "$cname" ]; then
-    :
+    echo "##[info] Dynamically created cluster not available. Using static cluster."
    else
     cluster_name="$cname"
    fi
@@ -28,7 +28,7 @@ create_nodepool() {
    az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" --output table
    echo "-----------------------"
    if az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" --output table | grep "$nodepool_name" ; then
-      echo "##[info] Pool has been created usccessfully."
+      echo "##[info] Pool has been created ssccessfully."
    else
       echo "##[error] Pool has not been successfully created. Lacking capacity?"
       echo "##vso[task.complete result=Failed;]DONE"
