@@ -12,24 +12,25 @@ steps:
         inlineScript: |
 
            nodepool_name=crux$(Build.BuildID)
-           cluster_name=k8
+           cluster_name=$(cluster_name)
+           crux_label=crux.usage
+           crux_label_value=jmeter
+           resource_group=$(rgroup)
+           node_count=$(($(scale_up_replicas)+1)) # + 1 for the master
+           node_size=$(clusterNodeSize)
 
            if [ -z "$(cname)" ]; then
-            echo ""
+            :
            else
             cluster_name="$(cname)"
            fi
-
-           resource_group=jmeter-group
-           node_count=$(($(scale_up_replicas)+1)) # + 1 for the master
-           node_size=Standard_D2_v2
 
            active_crux_pools=$(az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" -o json --query [?nodeLabels].{n:nodeLabels} | grep crux.usage | wc -l)
 
            echo "active crux pools: $active_crux_pools"
 
            echo "Create dedicated pool on $cluster_name - $nodepool_name with $node_count nodes sized as $node_size"
-           echo "az aks nodepool add --resource-group $resource_group --cluster-name $cluster_name  --name $nodepool_name --node-count $node_count --node-vm-size $node_size --labels crux.usage=jmeter"
+           echo "##[command]az aks nodepool add --resource-group $resource_group --cluster-name $cluster_name  --name $nodepool_name --node-count $node_count --node-vm-size $node_size --labels crux.usage=jmeter"
            az aks nodepool add --resource-group "$resource_group" --cluster-name "$cluster_name"  --name "$nodepool_name" --node-count "$node_count" --node-vm-size "$node_size" --labels crux.usage=jmeter
 
            echo "Available pools: "

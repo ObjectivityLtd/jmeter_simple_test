@@ -81,6 +81,7 @@ variables:
   clusterNodeNumber: 2
   rgroup: jmeter-group
   namespace: default
+  cluster_name: k8
 
 jobs:
   - template: run.jmeter.kubernetes.template.yaml
