@@ -101,8 +101,6 @@ jobs:
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.download_secret_file.yaml
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.override_deployment_rules.yaml
           - template: ${{ parameters.crux_templates }}/steps/step.create_cluster.yaml@crux
-            parameters:
-              timeoutInMinutes: 7
           - template: ${{ parameters.crux_templates }}/steps/step.create_nodepool.yaml@crux
             parameters:
               mode: ${{ parameters.mode }}
