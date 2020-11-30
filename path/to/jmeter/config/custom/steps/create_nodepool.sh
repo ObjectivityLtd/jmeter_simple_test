@@ -21,8 +21,9 @@ create_nodepool() {
    echo "Available pools: "
    az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" --output table
    echo "-----------------------"
+   echo "This build will use the following nodepool to run performance tests:"
    if az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" --output table | grep "$nodepool_name" ; then
-      echo "##[info] Pool has been created ssccessfully."
+      echo "##[info] Pool has been created successfully."
    else
       echo "##[error] Pool has not been successfully created. Lacking capacity?"
       echo "##vso[task.complete result=Failed;]DONE"

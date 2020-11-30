@@ -51,3 +51,6 @@ spec:
         volumeMounts:
           - mountPath: /dev/shm
             name: dshm
+          - name: jmeter-shared-disk
+            persistentVolumeClaim:
+              claimName: jmeter-shared-disk
