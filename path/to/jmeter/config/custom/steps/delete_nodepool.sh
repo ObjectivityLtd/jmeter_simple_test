@@ -2,8 +2,8 @@ delete_nodepool() {
    local nodepool_name=$1
    local cluster_name=$2
    local resource_group=$3
-   local cname=$(cname)
-
+   local cname_var=$4
+   local cname=${!cname_var} #expand variable
    if [ -z "$cname" ]; then
     :
    else

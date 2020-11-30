@@ -7,7 +7,8 @@ create_nodepool() {
    local scale_up_replicas=$6
    local node_count=$(($scale_up_replicas+1)) # + 1 for the master
    local node_size=$7
-   local cname=$(cname)
+   local cname_var=$8
+   local cname=${!cname_var} #expand variable
 
    if [ -z "$cname" ]; then
     :
