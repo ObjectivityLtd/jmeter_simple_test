@@ -9,7 +9,7 @@ steps:
         azureSubscription: $(armServiceConnection)
         scriptType: bash
         scriptPath: $(System.DefaultWorkingDirectory)/repos/$(repoName)/path/to/jmeter/config/custom/steps/create_nodepool.sh
-        arguments: crux$(Build.BuildID) $(cluster_name) crux.usage jmeter $(rgroup) $(scale_up_replicas) $(clusterNodeSize) $(cname)
+        arguments: crux$(Build.BuildID) $(cluster_name) crux.usage jmeter $(rgroup) $(scale_up_replicas) $(clusterNodeSize) "$(cname)"
                    #nodepool_name       #cluster_name   #crux_label #crux_label_value #resource_group #scale_up_replicas #node_size
 
 
