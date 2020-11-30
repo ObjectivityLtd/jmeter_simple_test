@@ -7,14 +7,8 @@ create_nodepool() {
    local scale_up_replicas=$6
    local node_count=$(($scale_up_replicas+1)) # + 1 for the master
    local node_size=$7
-   local cname=$8
 
-   if [ -z "$cname" ]; then
-    echo "##[info] Dynamically created cluster not available. Using static cluster."
-   else
-    echo "##[info] Using dynamically created cluster named $name"
-    cluster_name="$cname"
-   fi
+   echo "##[info] Using cluster $cluster_name"
 
    active_crux_pools=$(az aks nodepool list -g "$resource_group" --cluster-name "$cluster_name" -o json --query [?nodeLabels].{n:nodeLabels} | grep "$crux_label" | wc -l)
 
