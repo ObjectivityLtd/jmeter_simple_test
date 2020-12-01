@@ -76,7 +76,6 @@ jobs:
 
       - ${{ if and(eq(parameters.mode, 'jmeter_with_dynamic_pools'),ne(parameters.kubernetes_service_connection,'_'),ne(parameters.arm_service_connection,'_')) }}:
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.download_secret_file.yaml
-          - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.override_deployment_rules.yaml
           - template: ${{ parameters.crux_templates }}/steps/step.create_nodepool.yaml@crux
             parameters:
               mode: ${{ parameters.mode }}
@@ -99,7 +98,6 @@ jobs:
 
       - ${{ if and(eq(parameters.mode, 'jmeter_dynamic'),ne(parameters.arm_service_connection,'_')) }}:
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.download_secret_file.yaml
-          - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.override_deployment_rules.yaml
           - template: ${{ parameters.crux_templates }}/steps/step.create_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.create_nodepool.yaml@crux
             parameters:
