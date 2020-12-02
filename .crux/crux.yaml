@@ -41,11 +41,11 @@ parameters:
     type: string
 
   - name: kubernetes_service_connection
-    default: k8
+    default: _
     type: string
 
   - name: arm_service_connection
-    default: mygroup
+    default: _
     type: string
 
 variables:
