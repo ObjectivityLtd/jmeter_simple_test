@@ -39,7 +39,7 @@ parameters:
   type: number
 
 - name: jmx
-  default: path/to/jmeter/script/bing.jmx
+  default: .crux/path/to/jmeter/script/bing.jmx
   type: string
 
 - name: jmeter_args
@@ -64,10 +64,10 @@ variables:
   namespace: default
 
   #adjust paths to repo structure
-  crux_file: $(repoName)/path/to/jmeter/config/crux.properties
-  thresholds_file: $(repoName)/path/to/jmeter/config/thresholds.properties
-  workbooks_file: $(repoName)/path/to/jmeter/config/workbooks.properties
-  data_dir_relative: path/to/jmeter/test_data
+  crux_file: $(repoName)/.crux/path/to/jmeter/config/crux.properties
+  thresholds_file: $(repoName)/.crux/path/to/jmeter/config/thresholds.properties
+  workbooks_file: $(repoName)/.crux/path/to/jmeter/config/workbooks.properties
+  data_dir_relative: .crux/path/to/jmeter/test_data
 
   #read-only - do not change unless you know what you are doing
   cruxRepoName: crux
@@ -80,7 +80,7 @@ variables:
   data_dir: $(repoName)/$(data_dir_relative)
 
 jobs:
-  - template: run.jmeter.kubernetes.template.yaml
+  - template: crux.template.yaml
     parameters:
       mode: ${{ parameters.mode }}
       arm_service_connection: ${{ parameters.arm_service_connection }}
