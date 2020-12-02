@@ -80,7 +80,7 @@ variables:
   data_dir: $(repoName)/$(data_dir_relative)
 
 jobs:
-  - template: template/crux.template.yaml
+  - template: .template/crux.template.yaml
     parameters:
       mode: ${{ parameters.mode }}
       arm_service_connection: ${{ parameters.arm_service_connection }}

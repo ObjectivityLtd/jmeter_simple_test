@@ -1,8 +1,13 @@
 name: $(BuildID)
 trigger: none
+
+parameters:
+  - name: kubernetesServiceConnection
+    default: k8
+  - name: cluster_namespace
+    default: default
+
 variables:
-  cluster_namespace: default #edit
-  kubernetesServiceConnection: k8 #edit
   scale_down_replicas: 0
   service: jmeter-slaves
   service-master: jmeter-master
@@ -20,30 +25,29 @@ jobs:
       inputs:
         command: login
         connectionType: Kubernetes Service Connection
-        kubernetesServiceEndpoint: $(kubernetesServiceConnection)
+        kubernetesServiceEndpoint:  ${{ parameters.kubernetesServiceConnection }}
 
-    - task: ShellScript@2
+    - bash: |
+        master_pod=$(kubectl get po -n ${{ parameters.cluster_namespace }} | grep jmeter-master | awk '{print $1}')
+        kubectl -n ${{ parameters.cluster_namespace }} exec -ti $master_pod bash /jmeter/apache-jmeter-*/bin/stoptest.sh
       displayName: Stop JMeter tests
-      inputs:
-        scriptPath: kubernetes/bin/jmeter_stop.sh
-        args: $(cluster_namespace)
 
     - task: KubernetesManifest@0
       displayName: Scale slaves to $(scale_down_replicas)
       inputs:
-        kubernetesServiceConnection: $(kubernetesServiceConnection)
+        kubernetesServiceConnection:  ${{ parameters.kubernetesServiceConnection }}
         action: scale
         kind: deployment
         name: $(service)
         replicas: $(scale_down_replicas)
-        namespace: $(cluster_namespace)
+        namespace: ${{ parameters.cluster_namespace }}
 
     - task: KubernetesManifest@0
       displayName: Scale master to $(scale_down_replicas)
       inputs:
-        kubernetesServiceConnection: $(kubernetesServiceConnection)
+        kubernetesServiceConnection:  ${{ parameters.kubernetesServiceConnection }}
         action: scale
         kind: deployment
         name: $(service-master)
         replicas: $(scale_down_replicas)
-        namespace: $(cluster_namespace)
+        namespace: ${{ parameters.cluster_namespace }}
