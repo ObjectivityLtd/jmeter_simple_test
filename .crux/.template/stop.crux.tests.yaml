@@ -11,6 +11,7 @@ variables:
   scale_down_replicas: 0
   service: jmeter-slaves
   service-master: jmeter-master
+  sleep: 10
 
 jobs:
   - job: Stop_Tests
@@ -35,6 +36,8 @@ jobs:
           echo "##vso[task.setvariable variable=scale]false"
         else
           kubectl -n ${{ parameters.cluster_namespace }} exec -ti $master_pod bash /jmeter/apache-jmeter-5.3/bin/stoptest.sh
+          echo "##[command] sleep $(sleep)"
+          sleep $(sleep)
         fi
       displayName: Stop JMeter tests
 
