@@ -1,32 +1,18 @@
 parameters:
   - name: mode
-    displayName: 'Which template to use ?'
-    type: string
     default: jmeter
-
   - name: linux_pool
-    type: string
     default: microsoft_hosted
-
   - name: crux_templates
-    type: string
     default: pipelines/azure/templates
-
   - name: CUSTOM_crux_templates
-    type: string
     default: path/to/jmeter/config/custom
-
   - name: _crux_job_timeout
-    type: string
     default: 60
-
   - name: _crux_default_step_timeout
-    type: string
     default: 5
-
   - name: kubernetes_service_connection #used on compile time
     default: _
-
   - name: arm_service_connection #used on compile time
     default: _
 
