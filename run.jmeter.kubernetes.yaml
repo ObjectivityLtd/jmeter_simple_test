@@ -1,12 +1,11 @@
-# This pipeline requires azure service connection of type "kubernetes service"
-# Remember to have 1-1 jmeter service to k8 node (VM)/pod ratio - otherwsie some slaves can crash due to lack of resources
-
 name: $(BuildID)
 trigger:
   batch: 'true'
   branches:
     include:
       - '*'
+
+#specify where your tests reside, set both crux and tests version
 resources:
   repositories:
     - repository: crux
@@ -24,20 +23,16 @@ resources:
       #ref: refs/tags/0.4.1
       endpoint: crux
 
-
+#parameters available for selection when you run the pipeline
 parameters:
 
 - name: mode
-  default: jmeter_with_dynamic_pools
+  default: jmeter
   values:
     - jmeter
     - jmeter_with_dynamic_pools
     - jmeter_dynamic
     - tests
-
-- name: data_dir
-  type: string
-  default: path/to/jmeter/test_data
 
 - name: jmeter_slaves
   default: 1
@@ -60,28 +55,29 @@ parameters:
   type: string
 
 variables:
-  #test execution environment & config
-  cluster_namespace: crux$(Build.BuildID)
-  kubernetesServiceConnection: ${{ parameters.kubernetes_service_connection }}
-  scale_up_replicas: ${{ parameters.jmeter_slaves }}
-  data_dir: $(repoName)/${{ parameters.data_dir }}
-  data_dir_relative: ${{ parameters.data_dir }}
-  crux_file: $(repoName)/path/to/jmeter/config/crux.properties
-  thresholds_file: $(repoName)/path/to/jmeter/config/thresholds.properties
-  workbooks_file: $(repoName)/path/to/jmeter/config/workbooks.properties
-  jmeter_args: ${{ parameters.jmeter_args }}
+  #user-defined - configure during set-up
   repoName: jmeter_simple_test
-  cruxRepoName: crux
-  scenario: $(repoName)/${{ parameters.jmx }}
-
-
-  #parameters of cluster if to be created (jmeter_dynamic)
-  armServiceConnection: ${{ parameters.arm_service_connection }}
+  cluster_name: k8
   clusterNodeSize: Standard_D2_v2
   clusterNodeNumber: 2
   rgroup: jmeter-group
   namespace: default
-  cluster_name: k8
+
+  #adjust paths to repo structure
+  crux_file: $(repoName)/path/to/jmeter/config/crux.properties
+  thresholds_file: $(repoName)/path/to/jmeter/config/thresholds.properties
+  workbooks_file: $(repoName)/path/to/jmeter/config/workbooks.properties
+  data_dir_relative: path/to/jmeter/test_data
+
+  #read-only - do not change unless you know what you are doing
+  cruxRepoName: crux
+  cluster_namespace: crux$(Build.BuildID)
+  kubernetesServiceConnection: ${{ parameters.kubernetes_service_connection }}
+  scale_up_replicas: ${{ parameters.jmeter_slaves }}
+  jmeter_args: ${{ parameters.jmeter_args }}
+  scenario: $(repoName)/${{ parameters.jmx }}
+  armServiceConnection: ${{ parameters.arm_service_connection }}
+  data_dir: $(repoName)/$(data_dir_relative)
 
 jobs:
   - template: pipelines/azure/templates/run.jmeter.kubernetes.template.yaml@crux
