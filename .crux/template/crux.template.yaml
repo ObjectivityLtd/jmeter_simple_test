@@ -6,7 +6,7 @@ parameters:
   - name: crux_templates
     default: pipelines/azure/templates
   - name: CUSTOM_crux_templates
-    default: .crux/test/config/custom
+    default: /.crux/test/config/custom
   - name: _crux_job_timeout
     default: 60
   - name: _crux_default_step_timeout
