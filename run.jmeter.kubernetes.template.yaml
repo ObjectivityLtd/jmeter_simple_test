@@ -16,13 +16,13 @@ parameters:
     type: string
     default: path/to/jmeter/config/custom
 
-  - name: crux_job_timeout
+  - name: _crux_job_timeout
     type: string
     default: 60
 
-  - name: step_timeout
+  - name: _crux_default_step_timeout
     type: string
-    default: 2
+    default: 5
 
   - name: kubernetes_service_connection #used on compile time
     default: _
@@ -31,8 +31,8 @@ parameters:
     default: _
 
 jobs:
-  - job: Jmeter
-    timeoutInMinutes: ${{ parameters.crux_job_timeout }}
+  - job: JMeter
+    timeoutInMinutes: ${{ parameters._crux_job_timeout }}
     displayName: JMeter pipeline
     #choose pool
     ${{ if eq(parameters.linux_pool, 'microsoft_hosted') }}:
@@ -51,6 +51,8 @@ jobs:
     steps:
       - ${{ if ne(parameters.mode, 'tests') }}:
         - template: ${{ parameters.crux_templates }}/steps/step.crux_clone.yaml@crux
+          parameters:
+            timeoutInMinutes: ${{ parameters._crux_default_step_timeout }}
         - template: ${{ parameters.crux_templates }}/steps/step.tests_clone.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.prepare_tests.yaml@crux
         - template: ${{ parameters.crux_templates }}/steps/step.validate_configuration.yaml@crux
