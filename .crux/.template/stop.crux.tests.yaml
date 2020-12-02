@@ -29,7 +29,11 @@ jobs:
 
     - bash: |
         master_pod=$(kubectl get po -n ${{ parameters.cluster_namespace }} | grep jmeter-master | awk '{print $1}')
-        kubectl -n ${{ parameters.cluster_namespace }} exec -ti $master_pod bash /jmeter/apache-jmeter-*/bin/stoptest.sh
+        if [ -z "$master_pod" ];then
+          echo "##[warning] No JMeter tests are running at the moment"
+        else
+          kubectl -n ${{ parameters.cluster_namespace }} exec -ti $master_pod bash /jmeter/apache-jmeter-*/bin/stoptest.sh
+        fi
       displayName: Stop JMeter tests
 
     - task: KubernetesManifest@0
