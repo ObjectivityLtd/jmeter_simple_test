@@ -1,0 +1,81 @@
+name: $(BuildID)
+trigger:
+  batch: 'true'
+  branches:
+    include:
+      - '*'
+
+#specify where your tests reside, set both crux and tests version
+resources:
+  repositories:
+    - repository: crux
+      type: github
+      name: ObjectivityLtd/crux
+      ref: refs/heads/master
+      endpoint: crux
+
+    - repository: tests
+      type: github
+      name: ObjectivityLtd/jmeter_simple_test
+      ref: refs/heads/master
+      endpoint: crux
+
+parameters:
+  - name: mode
+    default: jmeter
+    values:
+      - jmeter
+      - jmeter_with_dynamic_pools
+      - jmeter_dynamic
+      - tests
+  - name: jmeter_slaves
+    default: 1
+    type: number
+
+  - name: jmx
+    default: .crux/test/script/bing.jmx
+    type: string
+
+  - name: jmeter_args
+    default: "-Gthreads=1 -Gloops=1 -Gwait=1 -Gdata_dir=/shared"
+    type: string
+
+  - name: kubernetes_service_connection
+    default: k8
+    type: string
+
+  - name: arm_service_connection
+    default: mygroup
+    type: string
+
+variables:
+  #user-defined - configure during set-up
+  repoName: jmeter_simple_test
+  cluster_name: k8
+  clusterNodeSize: Standard_D2_v2
+  clusterNodeNumber: 2
+  rgroup: jmeter-group
+  namespace: default
+
+  #adjust paths to repo structure
+  crux_file: $(repoName)/.crux/test/config/crux.properties
+  thresholds_file: $(repoName)/.crux/test/config/thresholds.properties
+  workbooks_file: $(repoName)/.crux/test/config/workbooks.properties
+  data_dir_relative: .crux/test/test_data
+
+  #read-only - do not change unless you know what you are doing
+  cruxRepoName: crux
+  cluster_namespace: crux$(Build.BuildID)
+  kubernetesServiceConnection: ${{ parameters.kubernetes_service_connection }}
+  scale_up_replicas: ${{ parameters.jmeter_slaves }}
+  jmeter_args: ${{ parameters.jmeter_args }}
+  scenario: $(repoName)/${{ parameters.jmx }}
+  armServiceConnection: ${{ parameters.arm_service_connection }}
+  data_dir: $(repoName)/$(data_dir_relative)
+
+jobs:
+  - template: .template/crux.template.yaml
+    parameters:
+      mode: ${{ parameters.mode }}
+      arm_service_connection: ${{ parameters.arm_service_connection }}
+      kubernetes_service_connection: ${{ parameters.kubernetes_service_connection }}

@@ -1,0 +1,64 @@
+name: $(BuildID)
+trigger: none
+
+parameters:
+  - name: kubernetesServiceConnection
+    default: k8
+  - name: cluster_namespace
+    default: default
+
+variables:
+  scale_down_replicas: 0
+  service: jmeter-slaves
+  service-master: jmeter-master
+  sleep: 10
+
+jobs:
+  - job: Stop_Tests
+    displayName: Stop Tests
+    pool:
+      vmImage: 'ubuntu-latest'
+    timeoutInMinutes: 5
+    steps:
+
+    - task: Kubernetes@1
+      displayName: Login to cluster
+      inputs:
+        command: login
+        connectionType: Kubernetes Service Connection
+        kubernetesServiceEndpoint:  ${{ parameters.kubernetesServiceConnection }}
+
+    - bash: |
+        master_pod=$(kubectl get po -n ${{ parameters.cluster_namespace }} | grep jmeter-master | awk '{print $1}')
+        if [ -z "$master_pod" ];then
+          echo "##[warning] No JMeter tests are running at the moment"
+          echo "##vso[task.complete result=SucceededWithIssues;]DONE"
+          echo "##vso[task.setvariable variable=scale]false"
+        else
+          kubectl -n ${{ parameters.cluster_namespace }} exec -ti $master_pod bash /jmeter/apache-jmeter-5.3/bin/stoptest.sh
+          echo "##[command] sleep $(sleep)"
+          sleep $(sleep)
+        fi
+      displayName: Stop JMeter tests
+
+    - task: KubernetesManifest@0
+      condition: ne(variables.scale,false)
+      displayName: Scale slaves to $(scale_down_replicas)
+      inputs:
+        kubernetesServiceConnection:  ${{ parameters.kubernetesServiceConnection }}
+        action: scale
+        kind: deployment
+        name: $(service)
+        replicas: $(scale_down_replicas)
+        namespace: ${{ parameters.cluster_namespace }}
+
+    - task: KubernetesManifest@0
+      condition: ne(variables.scale,false)
+      displayName: Scale master to $(scale_down_replicas)
+      inputs:
+        kubernetesServiceConnection:  ${{ parameters.kubernetesServiceConnection }}
+        action: scale
+        kind: deployment
+        name: $(service-master)
+        replicas: $(scale_down_replicas)
+        namespace: ${{ parameters.cluster_namespace }}
