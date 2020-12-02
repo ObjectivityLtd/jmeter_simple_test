@@ -11,48 +11,42 @@ resources:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      #ref: refs/tags/0.4.1
-      ref: refs/heads/feature/parametrization
+      ref: refs/heads/master
       endpoint: crux
 
     - repository: tests
       type: github
       name: ObjectivityLtd/jmeter_simple_test
-      #ref: refs/tags/0.3.2
-      ref: refs/heads/feature/parametrization
-      #ref: refs/tags/0.4.1
+      ref: refs/heads/master
       endpoint: crux
 
-#parameters available for selection when you run the pipeline
 parameters:
+  - name: mode
+    default: jmeter
+    values:
+      - jmeter
+      - jmeter_with_dynamic_pools
+      - jmeter_dynamic
+      - tests
+  - name: jmeter_slaves
+    default: 1
+    type: number
 
-- name: mode
-  default: jmeter
-  values:
-    - jmeter
-    - jmeter_with_dynamic_pools
-    - jmeter_dynamic
-    - tests
+  - name: jmx
+    default: .crux/test/script/bing.jmx
+    type: string
 
-- name: jmeter_slaves
-  default: 1
-  type: number
+  - name: jmeter_args
+    default: "-Gthreads=1 -Gloops=1 -Gwait=1 -Gdata_dir=/shared"
+    type: string
 
-- name: jmx
-  default: .crux/test/script/bing.jmx
-  type: string
+  - name: kubernetes_service_connection
+    default: k8
+    type: string
 
-- name: jmeter_args
-  default: "-Gthreads=1 -Gloops=1 -Gwait=1 -Gdata_dir=/shared"
-  type: string
-
-- name: kubernetes_service_connection
-  default: k8
-  type: string
-
-- name: arm_service_connection
-  default: mygroup
-  type: string
+  - name: arm_service_connection
+    default: mygroup
+    type: string
 
 variables:
   #user-defined - configure during set-up
