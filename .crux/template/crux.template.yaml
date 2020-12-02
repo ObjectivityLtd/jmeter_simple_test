@@ -6,7 +6,7 @@ parameters:
   - name: crux_templates
     default: pipelines/azure/templates
   - name: CUSTOM_crux_templates
-    default: path/to/jmeter/config/custom
+    default: .crux/test/config/custom
   - name: _crux_job_timeout
     default: 60
   - name: _crux_default_step_timeout
@@ -49,7 +49,7 @@ jobs:
       - ${{ if and(eq(parameters.mode, 'jmeter'),ne(parameters.kubernetes_service_connection,'_')) }}:
           - template: ${{ parameters.CUSTOM_crux_templates }}/steps/step.download_secret_file.yaml
             parameters:
-              enabled: false
+              enabled: true
           - template: ${{ parameters.crux_templates }}/steps/step.configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/steps/step.deploy_to_cluster.yaml@crux
