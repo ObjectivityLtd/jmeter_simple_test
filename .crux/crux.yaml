@@ -11,13 +11,13 @@ resources:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      ref: refs/heads/feature/group_steps_by_domain
+      ref: refs/heads/release/0.6.0
       endpoint: crux
 
     - repository: tests
       type: github
       name: ObjectivityLtd/jmeter_simple_test
-      ref: refs/heads/feature/group_steps_by_domain
+      ref: refs/heads/release/0.6.0
       endpoint: crux
 
 parameters:
