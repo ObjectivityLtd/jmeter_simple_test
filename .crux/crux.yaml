@@ -68,6 +68,7 @@ variables:
   cluster_namespace: crux$(Build.BuildID)
   kubernetesServiceConnection: ${{ parameters.kubernetes_service_connection }}
   scale_up_replicas: ${{ parameters.jmeter_slaves }}
+  _crux_scale_up_replicas_master: 2
   jmeter_args: ${{ parameters.jmeter_args }}
   scenario: $(repoName)/${{ parameters.jmx }}
   armServiceConnection: ${{ parameters.arm_service_connection }}
