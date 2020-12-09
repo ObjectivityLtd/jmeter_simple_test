@@ -2,16 +2,16 @@ name: $(BuildID)
 trigger: none
 
 parameters:
-  - name: kubernetesServiceConnection
+  - name: _crux_kubernetes_service_connection
     default: k8
-  - name: cluster_namespace
+  - name: _crux_exisiting_cluster_namespace
     default: default
 
 variables:
-  scale_down_replicas: 0
-  service: jmeter-slaves
-  service-master: jmeter-master
-  sleep: 10
+  _crux_scale_down_replicas: 0
+  _crux_jmeter_slaves_service: jmeter-slaves
+  _crux_jmeter_service_master: jmeter-master
+  _crux_sleep: 10
 
 jobs:
   - job: Stop_Tests
@@ -26,39 +26,39 @@ jobs:
       inputs:
         command: login
         connectionType: Kubernetes Service Connection
-        kubernetesServiceEndpoint:  ${{ parameters.kubernetesServiceConnection }}
+        kubernetesServiceEndpoint:  ${{ parameters._crux_kubernetes_service_connection }}
 
     - bash: |
-        master_pod=$(kubectl get po -n ${{ parameters.cluster_namespace }} | grep jmeter-master | awk '{print $1}')
+        master_pod=$(kubectl get po -n ${{ parameters._crux_exisiting_cluster_namespace }} | grep jmeter-master | awk '{print $1}')
         if [ -z "$master_pod" ];then
           echo "##[warning] No JMeter tests are running at the moment"
           echo "##vso[task.complete result=SucceededWithIssues;]DONE"
           echo "##vso[task.setvariable variable=scale]false"
         else
-          kubectl -n ${{ parameters.cluster_namespace }} exec -ti $master_pod bash /jmeter/apache-jmeter-5.3/bin/stoptest.sh
-          echo "##[command] sleep $(sleep)"
-          sleep $(sleep)
+          kubectl -n ${{ parameters._crux_exisiting_cluster_namespace }} exec -ti $master_pod bash /jmeter/apache-jmeter-5.3/bin/stoptest.sh
+          echo "##[command] _crux_sleep $(_crux_sleep)"
+          _crux_sleep $(_crux_sleep)
         fi
       displayName: Stop JMeter tests
 
     - task: KubernetesManifest@0
       condition: ne(variables.scale,false)
-      displayName: Scale slaves to $(scale_down_replicas)
+      displayName: Scale slaves to $(_crux_scale_down_replicas)
       inputs:
-        kubernetesServiceConnection:  ${{ parameters.kubernetesServiceConnection }}
+        _crux_kubernetes_service_connection:  ${{ parameters._crux_kubernetes_service_connection }}
         action: scale
         kind: deployment
-        name: $(service)
-        replicas: $(scale_down_replicas)
-        namespace: ${{ parameters.cluster_namespace }}
+        name: $(_crux_jmeter_slaves_service)
+        replicas: $(_crux_scale_down_replicas)
+        namespace: ${{ parameters._crux_exisiting_cluster_namespace }}
 
     - task: KubernetesManifest@0
       condition: ne(variables.scale,false)
-      displayName: Scale master to $(scale_down_replicas)
+      displayName: Scale master to $(_crux_scale_down_replicas)
       inputs:
-        kubernetesServiceConnection:  ${{ parameters.kubernetesServiceConnection }}
+        _crux_kubernetes_service_connection:  ${{ parameters._crux_kubernetes_service_connection }}
         action: scale
         kind: deployment
-        name: $(service-master)
-        replicas: $(scale_down_replicas)
-        namespace: ${{ parameters.cluster_namespace }}
+        name: $(_crux_jmeter_service_master)
+        replicas: $(_crux_scale_down_replicas)
+        namespace: ${{ parameters._crux_exisiting_cluster_namespace }}
