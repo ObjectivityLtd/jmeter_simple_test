@@ -1,9 +1,9 @@
 name: $(BuildID)
-trigger:
-  batch: 'true'
-  branches:
-    include:
-      - '*'
+schedules:
+  - cron: "*/6 * * * *"
+    branches:
+      include:
+        - feature/bash_improvements
 
 resources:
   repositories:
@@ -46,7 +46,7 @@ parameters:
 
   - name: kubernetes_service_connection
     displayName: Kubernetes Service Connection used to attach to exisiting cluster (jmeter | jmeter_with_dynamic_pools)
-    default: k8
+    default: _
     type: string
 
   - name: arm_service_connection

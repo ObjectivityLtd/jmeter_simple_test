@@ -54,7 +54,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/configure_cluster/configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
-          - template: ${{ parameters.crux_templates }}/jmeter_tests/jmeter_tests.yaml@crux
+          - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_results/archive_jmeter_results.yaml@crux
@@ -75,7 +75,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/configure_cluster/configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
-          - template: ${{ parameters.crux_templates }}/jmeter_tests/jmeter_tests.yaml@crux
+          - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_results/archive_jmeter_results.yaml@crux
@@ -99,7 +99,7 @@ jobs:
               mode: ${{ parameters.mode }}
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
-          - template: ${{ parameters.crux_templates }}/jmeter_tests/jmeter_tests.yaml@crux
+          - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_results/archive_jmeter_results.yaml@crux
@@ -127,7 +127,7 @@ jobs:
         - template: ${{ parameters.crux_templates }}/configure_cluster/configure_cluster.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.mock.yaml@crux
-        - template: ${{ parameters.crux_templates }}/jmeter_tests/jmeter_tests.mock.yaml@crux
+        - template: ${{ parameters.crux_templates }}/jmeter/jmeter.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/archive_jmeter_results/archive_jmeter_results.mock.yaml@crux
@@ -145,6 +145,6 @@ jobs:
   #RUN on framework tests
   - ${{ if eq(parameters.mode, 'tests') }}:
     - template: azure/tests/jobs/run_bats_modules_tests.yaml@crux
-    - template: azure/tests/jobs/run_pester_modules_tests.yaml@crux
+    #- template: azure/tests/jobs/run_pester_modules_tests.yaml@crux
     - template: azure/tests/jobs/test_docker_images.yaml@crux
     - template: azure/build/jobs/build_and_push_docker.yaml@crux
