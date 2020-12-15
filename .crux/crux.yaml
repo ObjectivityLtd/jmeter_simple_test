@@ -1,77 +1,81 @@
 name: $(BuildID)
-trigger:
-  batch: 'true'
-  branches:
-    include:
-      - '*'
+schedules:
+  - cron: "*/6 * * * *"
+    branches:
+      include:
+        - feature/bash_improvements
 
-#specify where your tests reside, set both crux and tests version
 resources:
   repositories:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      ref: refs/heads/master
+      ref: refs/heads/release/0.6.0
       endpoint: crux
 
     - repository: tests
       type: github
       name: ObjectivityLtd/jmeter_simple_test
-      ref: refs/heads/master
+      ref: refs/heads/release/0.6.0
       endpoint: crux
 
 parameters:
   - name: mode
+    displayName: CRUX run-mode
     default: jmeter
     values:
       - jmeter
       - jmeter_with_dynamic_pools
       - jmeter_dynamic
       - tests
+
   - name: jmeter_slaves
+    displayName: JMeter slaves number to run test
     default: 1
     type: number
 
   - name: jmx
+    displayName: JMeter scenario file
     default: .crux/test/script/bing.jmx
     type: string
 
   - name: jmeter_args
+    displayName: JMeter arguments passed to tests
     default: "-Gthreads=1 -Gloops=1 -Gwait=1 -Gdata_dir=/shared"
     type: string
 
   - name: kubernetes_service_connection
+    displayName: Kubernetes Service Connection used to attach to exisiting cluster (jmeter | jmeter_with_dynamic_pools)
     default: _
     type: string
 
   - name: arm_service_connection
+    displayName: Azure Service Connection used to create resources dynamically for test (jmeter_dynamic | jmeter_with_dynamic_pools)
     default: _
     type: string
 
 variables:
-  #user-defined - configure during set-up
-  repoName: jmeter_simple_test
-  cluster_name: k8
-  clusterNodeSize: Standard_D2_v2
-  clusterNodeNumber: 2
-  rgroup: jmeter-group
-  namespace: default
 
-  #adjust paths to repo structure
-  crux_file: $(repoName)/.crux/test/config/crux.properties
-  thresholds_file: $(repoName)/.crux/test/config/thresholds.properties
-  workbooks_file: $(repoName)/.crux/test/config/workbooks.properties
-  data_dir_relative: .crux/test/test_data
 
-  #read-only - do not change unless you know what you are doing
-  cruxRepoName: crux
-  cluster_namespace: crux$(Build.BuildID)
-  kubernetesServiceConnection: ${{ parameters.kubernetes_service_connection }}
-  scale_up_replicas: ${{ parameters.jmeter_slaves }}
-  jmeter_args: ${{ parameters.jmeter_args }}
-  scenario: $(repoName)/${{ parameters.jmx }}
-  armServiceConnection: ${{ parameters.arm_service_connection }}
-  data_dir: $(repoName)/$(data_dir_relative)
+  #infrastructure details
+  _crux_cluster_resource_group: jmeter-group #resource group name for arm_service_connection
+  _crux_cluster_node_size: Standard_D2_v2 #size of nodes in cluster when creating them dynamically (pool, new cluster)
+  _crux_cluster_name: k8 #cluster name if using an existing cluster
+  _crux_cluster_default_node_number: 2 #default node number for dynamic cluster system pool
+
+  #tests resources
+  _crux_properties_file_relative: .crux/test/config/crux.properties
+  _crux_thresholds_file_relative: .crux/test/config/thresholds.properties
+  _crux_workbooks_file_relative: .crux/test/config/workbooks.properties
+  _crux_data_dir_relative: .crux/test/test_data
+
+  #reserved, do not modify unless you know what you are doing, turning parameters into vars for global scope
+  _crux_cluster_jmeter_slaves_replicas: ${{ parameters.jmeter_slaves }}
+  _crux_jmeter_args: ${{ parameters.jmeter_args }}
+  _crux_jmeter_scenario_relative: ${{ parameters.jmx }}
+  _crux_arm_service_connection : ${{ parameters.arm_service_connection }}
+  _crux_kubernetes_service_connection: ${{ parameters.kubernetes_service_connection }}
+  _crux_cluster_deployment_namespace: crux$(Build.BuildID)
 
 jobs:
   - template: .template/crux.template.yaml
