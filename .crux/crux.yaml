@@ -3,20 +3,20 @@ schedules:
   - cron: "*/6 * * * *"
     branches:
       include:
-        - feature/docker
+        - release/0.7.0
 
 resources:
   repositories:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      ref: refs/heads/feature/docker
+      ref: refs/heads/release/0.7.0
       endpoint: crux
 
     - repository: tests
       type: github
       name: ObjectivityLtd/jmeter_simple_test
-      ref: refs/heads/feature/docker
+      ref: refs/heads/release/0.7.0
       endpoint: crux
 
 parameters:
