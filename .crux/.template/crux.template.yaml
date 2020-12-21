@@ -1,6 +1,6 @@
 parameters:
   - name: mode
-    default: jmeter
+    default: on_build_agent
   - name: linux_pool
     default: microsoft_hosted
   - name: crux_templates
@@ -46,8 +46,24 @@ jobs:
           parameters:
             mode: ${{ parameters.mode}}
 
+      #STATIC mode without node pool creation
+      - ${{ if eq(parameters.mode, 'on_build_agent') }}:
+          - template: ${{ parameters.CUSTOM_crux_templates }}/download_secret_file/download_secret_file.yaml
+            parameters:
+              enabled: false
+          - template: ${{ parameters.crux_templates }}/jmeter_docker/jmeter_docker.yaml@crux
+            parameters:
+              image: "gabrielstar/crux-master:jmeter5.4-chrome87"
+          - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
+          - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
+          - template: ${{ parameters.crux_templates }}/archive_jmeter_results/archive_jmeter_results.yaml@crux
+          - template: ${{ parameters.crux_templates }}/archive_jmeter_log/archive_jmeter_log.yaml@crux
+          - template: ${{ parameters.crux_templates }}/archive_jmeter_errors/archive_jmeter_errors.yaml@crux
+          - template: ${{ parameters.crux_templates }}/junit/junit.yaml@crux
+          - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
+
     #STATIC mode without node pool creation
-      - ${{ if and(eq(parameters.mode, 'jmeter'),ne(parameters.kubernetes_service_connection,'_')) }}:
+      - ${{ if and(eq(parameters.mode, 'on_aks'),ne(parameters.kubernetes_service_connection,'_')) }}:
           - template: ${{ parameters.CUSTOM_crux_templates }}/download_secret_file/download_secret_file.yaml
             parameters:
               enabled: false
@@ -65,7 +81,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
 
-      - ${{ if and(eq(parameters.mode, 'jmeter_with_dynamic_pools'),ne(parameters.kubernetes_service_connection,'_'),ne(parameters.arm_service_connection,'_')) }}:
+      - ${{ if and(eq(parameters.mode, 'on_aks_pool_created_for_each_test_run'),ne(parameters.kubernetes_service_connection,'_'),ne(parameters.arm_service_connection,'_')) }}:
           - template: ${{ parameters.CUSTOM_crux_templates }}/download_secret_file/download_secret_file.yaml
             parameters:
               enabled: false
@@ -89,7 +105,7 @@ jobs:
             parameters:
               mode: ${{ parameters.mode }}
 
-      - ${{ if and(eq(parameters.mode, 'jmeter_dynamic'),ne(parameters.arm_service_connection,'_')) }}:
+      - ${{ if and(eq(parameters.mode, 'on_aks_created_for_each_test_run'),ne(parameters.arm_service_connection,'_')) }}:
           - template: ${{ parameters.CUSTOM_crux_templates }}/download_secret_file/download_secret_file.yaml
             parameters:
               enabled: false
@@ -145,6 +161,6 @@ jobs:
   #RUN on framework tests
   - ${{ if eq(parameters.mode, 'tests') }}:
     - template: azure/tests/jobs/run_bats_modules_tests.yaml@crux
-    #- template: azure/tests/jobs/run_pester_modules_tests.yaml@crux
+    - template: azure/tests/jobs/run_pester_modules_tests.yaml@crux
     - template: azure/tests/jobs/test_docker_images.yaml@crux
     - template: azure/build/jobs/build_and_push_docker.yaml@crux

@@ -7,5 +7,5 @@ In order to use it:
     - specify resources for CRUX and your tests:
         - Git service connections
         - Kubernetes Service connection (jmeter mode)
-        - ARM Service connection (jmeter_dynamic and jmeter_with_dynamic_pools)
+        - ARM Service connection (on_aks_created_for_each_test_run and on_aks_pool_created_for_each_test_run)
     - adjust paths and parameters 
