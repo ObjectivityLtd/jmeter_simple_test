@@ -6,6 +6,6 @@ In order to use it:
 - edit .crux/crux.yaml"
     - specify resources for CRUX and your tests:
         - Git service connections
-        - Kubernetes Service connection (jmeter mode)
-        - ARM Service connection (on_aks_created_for_each_test_run and on_aks_pool_created_for_each_test_run)
+        - Kubernetes Service connection 
+        - ARM Service connection
     - adjust paths and parameters 
