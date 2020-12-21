@@ -27,7 +27,6 @@ parameters:
       - on_aks
       - on_aks_pool_created_for_each_test_run
       - on_aks_created_for_each_test_run
-      - tests
 
   - name: jmeter_slaves
     displayName: JMeter slaves number to run test
