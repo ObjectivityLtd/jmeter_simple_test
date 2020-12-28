@@ -3,19 +3,19 @@ schedules:
   - cron: "*/6 * * * *"
     branches:
       include:
-        - release/0.8.0
+        - feature/helm
 
 resources:
   repositories:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      ref: refs/heads/release/0.8.0
+      ref: refs/heads/feature/helm
       endpoint: crux
     - repository: tests
       type: github
       name: ObjectivityLtd/jmeter_simple_test
-      ref: refs/heads/release/0.8.0
+      ref: refs/heads/feature/helm
       endpoint: crux
 
 parameters:
