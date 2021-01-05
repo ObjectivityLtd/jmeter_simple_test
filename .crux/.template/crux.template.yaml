@@ -79,6 +79,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/archive_jmeter_server_logs/archive_jmeter_server_logs.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit/junit.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_deployment/delete_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
 
@@ -101,6 +102,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/archive_jmeter_server_logs/archive_jmeter_server_logs.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit/junit.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_deployment/delete_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_nodepool/delete_nodepool.yaml@crux
@@ -126,6 +128,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/archive_jmeter_server_logs/archive_jmeter_server_logs.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit/junit.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_deployment/delete_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_nodepool/delete_nodepool.yaml@crux
@@ -156,6 +159,7 @@ jobs:
         - template: ${{ parameters.crux_templates }}/junit/junit.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.mock.yaml@crux
+        - template: ${{ parameters.crux_templates }}/delete_deployment/delete_deployment.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/delete_nodepool/delete_nodepool.mock.yaml@crux
           parameters:
