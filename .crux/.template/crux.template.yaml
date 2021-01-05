@@ -80,6 +80,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/junit/junit.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
 
       - ${{ if and(eq(parameters.mode, 'on_aks_pool_created_for_each_test_run'),ne(parameters.kubernetes_service_connection,'_'),ne(parameters.arm_service_connection,'_')) }}:
           - template: ${{ parameters.CUSTOM_crux_templates }}/download_secret_file/download_secret_file.yaml
@@ -101,6 +102,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/junit/junit.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_nodepool/delete_nodepool.yaml@crux
             parameters:
               mode: ${{ parameters.mode }}
@@ -125,6 +127,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/junit/junit.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_nodepool/delete_nodepool.yaml@crux
             parameters:
               mode: ${{ parameters.mode }}
@@ -153,6 +156,7 @@ jobs:
         - template: ${{ parameters.crux_templates }}/junit/junit.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.mock.yaml@crux
+        - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/delete_nodepool/delete_nodepool.mock.yaml@crux
           parameters:
             mode: ${{ parameters.mode }}
