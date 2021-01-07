@@ -70,6 +70,9 @@ jobs:
           - template: ${{ parameters.crux_templates }}/configure_cluster/configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
+            parameters:
+              tool: helm
+              placementRules: best.effort.placement
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
@@ -93,6 +96,9 @@ jobs:
           - template: ${{ parameters.crux_templates }}/configure_cluster/configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
+            parameters:
+              tool: helm
+              placementRules: required.placement
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
@@ -119,6 +125,8 @@ jobs:
               mode: ${{ parameters.mode }}
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
+            parameters:
+              tool: kubectl
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
