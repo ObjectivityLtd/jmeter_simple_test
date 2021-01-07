@@ -83,6 +83,8 @@ jobs:
           - template: ${{ parameters.crux_templates }}/junit/junit.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_deployment/delete_deployment.yaml@crux
+              parameters:
+                tool: kubectl
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
 
