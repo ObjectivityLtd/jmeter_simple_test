@@ -76,6 +76,7 @@ jobs:
               slaveImage: gabrielstar/crux-slave:jmeter5.4-chrome87
               masterImage: gabrielstar/crux-master:jmeter5.4-chrome87
               mode: ${{ parameters.mode }}
+          - template: ${{ parameters.crux_templates }}/validate_deployment/validate_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
@@ -107,6 +108,7 @@ jobs:
               slaveImage: gabrielstar/crux-slave:jmeter5.4-chrome87
               masterImage: gabrielstar/crux-master:jmeter5.4-chrome87
               mode: ${{ parameters.mode }}
+          - template: ${{ parameters.crux_templates }}/validate_deployment/validate_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
@@ -141,6 +143,7 @@ jobs:
               slaveImage: gabrielstar/crux-slave:jmeter5.4-chrome87
               masterImage: gabrielstar/crux-master:jmeter5.4-chrome87
               mode: ${{ parameters.mode }}
+          - template: ${{ parameters.crux_templates }}/validate_deployment/validate_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
