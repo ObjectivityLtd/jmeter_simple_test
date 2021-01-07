@@ -76,6 +76,8 @@ jobs:
               slaveImage: gabrielstar/crux-slave:jmeter5.4-chrome87
               masterImage: gabrielstar/crux-master:jmeter5.4-chrome87
               mode: ${{ parameters.mode }}
+              slaveJVM_ARGS: "-Xms512M -Xmx1G"
+              masterJVM_ARGS: "-Xms512M -Xmx1G"
           - template: ${{ parameters.crux_templates }}/validate_deployment/validate_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
@@ -109,6 +111,8 @@ jobs:
               slaveImage: gabrielstar/crux-slave:jmeter5.4-chrome87
               masterImage: gabrielstar/crux-master:jmeter5.4-chrome87
               mode: ${{ parameters.mode }}
+              slaveJVM_ARGS: "-Xms512M -Xmx1G"
+              masterJVM_ARGS: "-Xms512M -Xmx1G"
           - template: ${{ parameters.crux_templates }}/validate_deployment/validate_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
@@ -145,6 +149,8 @@ jobs:
               slaveImage: gabrielstar/crux-slave:jmeter5.4-chrome87
               masterImage: gabrielstar/crux-master:jmeter5.4-chrome87
               mode: ${{ parameters.mode }}
+              slaveJVM_ARGS: "-Xms512M -Xmx1G"
+              masterJVM_ARGS: "-Xms512M -Xmx1G"
           - template: ${{ parameters.crux_templates }}/validate_deployment/validate_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
