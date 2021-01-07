@@ -102,7 +102,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
             parameters:
               tool: helm
-              placementRules: best.effort.placement
+              placementRules: required.placement
               slaveImage: gabrielstar/crux-slave:jmeter5.4-chrome87
               masterImage: gabrielstar/crux-master:jmeter5.4-chrome87
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
@@ -134,7 +134,10 @@ jobs:
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
             parameters:
-              tool: kubectl
+              tool: helm
+              placementRules: required.placement
+              slaveImage: gabrielstar/crux-slave:jmeter5.4-chrome87
+              masterImage: gabrielstar/crux-master:jmeter5.4-chrome87
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
@@ -146,7 +149,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_deployment/delete_deployment.yaml@crux
             parameters:
-              tool: kubectl
+              tool: helm
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_nodepool/delete_nodepool.yaml@crux
