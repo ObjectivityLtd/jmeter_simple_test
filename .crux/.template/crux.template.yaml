@@ -71,7 +71,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
             parameters:
-              tool: kubectl
+              tool: helm
               placementRules: best.effort.placement
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
@@ -84,7 +84,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_deployment/delete_deployment.yaml@crux
             parameters:
-              tool: kubectl
+              tool: helm
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
 
