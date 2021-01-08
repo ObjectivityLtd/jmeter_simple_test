@@ -95,7 +95,7 @@ jobs:
               tool: helm
               mode: ${{ parameters.mode }}
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
-          - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
+          #- template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
 
       - ${{ if and(eq(parameters.mode, 'on_aks_pool_created_for_each_test_run'),ne(parameters.kubernetes_service_connection,'_'),ne(parameters.arm_service_connection,'_')) }}:
           - template: ${{ parameters.CUSTOM_crux_templates }}/download_secret_file/download_secret_file.yaml
