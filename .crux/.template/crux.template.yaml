@@ -76,6 +76,7 @@ jobs:
               placementRules: best.effort.placement
               slaveImage: gabrielstar/crux-slave:jmeter5.4-chrome87
               masterImage: gabrielstar/crux-master:jmeter5.4-chrome87
+              chartURL: https://github.com/ObjectivityLtd/crux/releases/download/0.7.0/jmeter-cluster.zip
               mode: ${{ parameters.mode }}
               slaveJVM_ARGS: "-Xms512M -Xmx1G"
               masterJVM_ARGS: "-Xms512M -Xmx1G"
