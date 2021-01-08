@@ -193,6 +193,7 @@ jobs:
         - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/wait_for_cluster_ready/wait_for_cluster_ready.mock.yaml@crux
+        - template: ${{ parameters.crux_templates }}/validate_deployment/validate_deployment.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/jmeter/jmeter.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.mock.yaml@crux
