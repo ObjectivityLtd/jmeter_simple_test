@@ -70,10 +70,10 @@ jobs:
               enabled: false
           - template: ${{ parameters.crux_templates }}/configure_cluster/configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
-          - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.tmp.yaml@crux
+          - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
             parameters:
               tool: helm
-              helmTimeout: 2m
+              helmTimeout: 3m
               placementRules: best.effort.placement
               slaveImage: gabrielstar/crux-slave:jmeter5.4-chrome87
               masterImage: gabrielstar/crux-master:jmeter5.4-chrome87
