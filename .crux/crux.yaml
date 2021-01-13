@@ -46,21 +46,21 @@ parameters:
 
   - name: kubernetes_service_connection
     displayName: K8 Connection
-    default: k8
+    default: k8c
     type: string
 
   - name: arm_service_connection
     displayName: ARM Connection
-    default: m
+    default: Azure Test
     type: string
 
 variables:
 
 
   #infrastructure details
-  _crux_cluster_resource_group: jmeter-group #resource group name for arm_service_connection
+  _crux_cluster_resource_group: PZI-GXEU-N-RGP-841d-D001 #resource group name for arm_service_connection
   _crux_cluster_node_size: Standard_D2_v2 #size of nodes in cluster when creating them dynamically (pool, new cluster)
-  _crux_cluster_name: k8 #cluster name if using an existing cluster
+  _crux_cluster_name: gx-zweappdks015 #cluster name if using an existing cluster
   _crux_cluster_default_node_number: 2 #default node number for dynamic cluster system pool
 
   #tests resources
