@@ -1,6 +1,6 @@
 name: $(BuildID)
 schedules:
-  - cron: "*/6 * * * *"
+  - cron: "*/15 * * * *"
     branches:
       include:
         - feature/helm
