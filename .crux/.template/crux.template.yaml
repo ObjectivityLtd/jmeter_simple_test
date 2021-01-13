@@ -73,6 +73,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
             parameters:
               tool: helm
+              helmTimeout: 10
               placementRules: best.effort.placement
               slaveImage: gabrielstar/crux-slave:jmeter5.4-chrome87
               masterImage: gabrielstar/crux-master:jmeter5.4-chrome87
