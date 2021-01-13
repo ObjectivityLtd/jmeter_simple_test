@@ -51,7 +51,7 @@ parameters:
 
   - name: arm_service_connection
     displayName: ARM Connection
-    default: Azure Test
+    default: DevSecOps AKS - DEV
     type: string
 
 variables:
