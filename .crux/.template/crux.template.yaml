@@ -70,7 +70,7 @@ jobs:
               enabled: false
           - template: ${{ parameters.crux_templates }}/configure_cluster/configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
-          - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
+          - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.tmp.yaml@crux
             parameters:
               tool: helm
               helmTimeout: 2m
