@@ -11,18 +11,18 @@ resources:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      ref: refs/heads/feature/helm
+      ref: refs/heads/release/0.8.0
       endpoint: crux
     - repository: tests
       type: github
       name: ObjectivityLtd/jmeter_simple_test
-      ref: refs/heads/feature/helm
+      ref: refs/heads/release/0.8.0
       endpoint: crux
 
 parameters:
   - name: mode
     displayName: Where to execute tests?
-    default: on_aks
+    default: on_build_agent
     values:
       - on_build_agent
       - on_aks
@@ -47,21 +47,21 @@ parameters:
 
   - name: kubernetes_service_connection
     displayName: K8 Connection
-    default: k8g
+    default: k8
     type: string
 
   - name: arm_service_connection
     displayName: ARM Connection
-    default: DevSecOps AKS - DEV
+    default: arm8
     type: string
 
 variables:
 
 
   #infrastructure details
-  _crux_cluster_resource_group: PZI-GXEU-N-RGP-841d-D001 #resource group name for arm_service_connection
+  _crux_cluster_resource_group: jmeter-group #resource group name for arm_service_connection
   _crux_cluster_node_size: Standard_D2_v2 #size of nodes in cluster when creating them dynamically (pool, new cluster)
-  _crux_cluster_name: gx-zweappdks015 #cluster name if using an existing cluster
+  _crux_cluster_name: k8 #cluster name if using an existing cluster
   _crux_cluster_default_node_number: 2 #default node number for dynamic cluster system pool
 
   #tests resources
