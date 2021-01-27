@@ -41,7 +41,7 @@ parameters:
 
   - name: jmeter_args
     displayName: JMeter arguments passed to tests
-    default: "-Gthreads=1 -Gloops=1 -Gwait=1 -Gdata_dir=/shared"
+    default: "-Gthreads=0 -Gloops=0 -Gwait=1 -Gdata_dir=/shared"
     type: string
 
   - name: kubernetes_service_connection
