@@ -4,7 +4,7 @@ schedules:
   - cron: "0 */8 * * *"
     branches:
       include:
-        - feature/helm
+        - release/0.8.0
 
 resources:
   repositories:
