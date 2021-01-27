@@ -1,32 +1,34 @@
+#Author: Gabriel Starczewski
 name: $(BuildID)
 schedules:
-  - cron: "*/6 * * * *"
+  - cron: "0 */8 * * *"
     branches:
       include:
-        - release/0.8.0
+        - feature/helm
 
 resources:
   repositories:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      ref: refs/heads/release/0.8.0
+      ref: refs/heads/feature/helm
       endpoint: crux
     - repository: tests
       type: github
       name: ObjectivityLtd/jmeter_simple_test
-      ref: refs/heads/release/0.8.0
+      ref: refs/heads/feature/helm
       endpoint: crux
 
 parameters:
   - name: mode
     displayName: Where to execute tests?
-    default: on_build_agent
+    default: on_aks
     values:
       - on_build_agent
       - on_aks
       - on_aks_pool_created_for_each_test_run
       - on_aks_created_for_each_test_run
+      - tests
 
   - name: jmeter_slaves
     displayName: JMeter slaves number to run test
@@ -40,26 +42,26 @@ parameters:
 
   - name: jmeter_args
     displayName: JMeter arguments passed to tests
-    default: "-Gthreads=1 -Gloops=1 -Gwait=1 -Gdata_dir=/shared"
+    default: "-Gthreads=0 -Gloops=0 -Gwait=1 -Gdata_dir=/shared"
     type: string
 
   - name: kubernetes_service_connection
     displayName: K8 Connection
-    default: k8
+    default: k8g
     type: string
 
   - name: arm_service_connection
     displayName: ARM Connection
-    default: m
+    default: DevSecOps AKS - DEV
     type: string
 
 variables:
 
 
   #infrastructure details
-  _crux_cluster_resource_group: jmeter-group #resource group name for arm_service_connection
+  _crux_cluster_resource_group: PZI-GXEU-N-RGP-841d-D001 #resource group name for arm_service_connection
   _crux_cluster_node_size: Standard_D2_v2 #size of nodes in cluster when creating them dynamically (pool, new cluster)
-  _crux_cluster_name: k8 #cluster name if using an existing cluster
+  _crux_cluster_name: gx-zweappdks015 #cluster name if using an existing cluster
   _crux_cluster_default_node_number: 2 #default node number for dynamic cluster system pool
 
   #tests resources

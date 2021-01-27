@@ -54,6 +54,7 @@ jobs:
           - template: ${{ parameters.crux_templates }}/jmeter_docker/jmeter_docker.yaml@crux
             parameters:
               image: "gabrielstar/crux-master:jmeter5.4-chrome87"
+              JVM_ARGS: "-Xms512M -Xmx1536M"
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_results/archive_jmeter_results.yaml@crux
@@ -70,6 +71,18 @@ jobs:
           - template: ${{ parameters.crux_templates }}/configure_cluster/configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
+            parameters:
+              tool: helm
+              helmTimeout: 5m
+              placementRules: best.effort.placement
+              slaveImage: objectivityltd/crux-slave:jmeter5.4-chrome87
+              masterImage: objectivityltd/crux-master:jmeter5.4-chrome87
+              chartURL: https://github.com/ObjectivityLtd/crux/releases/download/0.7.0/jmeter-cluster-0.8.0.zip
+              mode: ${{ parameters.mode }}
+              slaveJVM_ARGS: "-Xms512M -Xmx1G"
+              masterJVM_ARGS: "-Xms512M -Xmx1G"
+          - template: ${{ parameters.crux_templates }}/wait_for_cluster_ready/wait_for_cluster_ready.yaml@crux
+          - template: ${{ parameters.crux_templates }}/validate_deployment/validate_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
@@ -79,7 +92,12 @@ jobs:
           - template: ${{ parameters.crux_templates }}/archive_jmeter_server_logs/archive_jmeter_server_logs.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit/junit.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_deployment/delete_deployment.yaml@crux
+            parameters:
+              tool: helm
+              mode: ${{ parameters.mode }}
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
 
       - ${{ if and(eq(parameters.mode, 'on_aks_pool_created_for_each_test_run'),ne(parameters.kubernetes_service_connection,'_'),ne(parameters.arm_service_connection,'_')) }}:
           - template: ${{ parameters.CUSTOM_crux_templates }}/download_secret_file/download_secret_file.yaml
@@ -91,6 +109,17 @@ jobs:
           - template: ${{ parameters.crux_templates }}/configure_cluster/configure_cluster.yaml@crux
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
+            parameters:
+              tool: helm
+              placementRules: required.placement
+              slaveImage: objectivityltd/crux-slave:jmeter5.4-chrome87
+              masterImage: objectivityltd/crux-master:jmeter5.4-chrome87
+              chartURL: https://github.com/ObjectivityLtd/crux/releases/download/0.7.0/jmeter-cluster-0.8.0.zip
+              mode: ${{ parameters.mode }}
+              slaveJVM_ARGS: "-Xms512M -Xmx1G"
+              masterJVM_ARGS: "-Xms512M -Xmx1G"
+          - template: ${{ parameters.crux_templates }}/wait_for_cluster_ready/wait_for_cluster_ready.yaml@crux
+          - template: ${{ parameters.crux_templates }}/validate_deployment/validate_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
@@ -100,7 +129,12 @@ jobs:
           - template: ${{ parameters.crux_templates }}/archive_jmeter_server_logs/archive_jmeter_server_logs.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit/junit.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_deployment/delete_deployment.yaml@crux
+            parameters:
+              tool: helm
+              mode: ${{ parameters.mode }}
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_nodepool/delete_nodepool.yaml@crux
             parameters:
               mode: ${{ parameters.mode }}
@@ -115,6 +149,17 @@ jobs:
               mode: ${{ parameters.mode }}
           - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.yaml@crux
           - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.yaml@crux
+            parameters:
+              tool: helm
+              placementRules: required.placement
+              slaveImage: objectivityltd/crux-slave:jmeter5.4-chrome87
+              masterImage: objectivityltd/crux-master:jmeter5.4-chrome87
+              chartURL: https://github.com/ObjectivityLtd/crux/releases/download/0.7.0/jmeter-cluster-0.8.0.zip
+              mode: ${{ parameters.mode }}
+              slaveJVM_ARGS: "-Xms512M -Xmx1G"
+              masterJVM_ARGS: "-Xms512M -Xmx1G"
+          - template: ${{ parameters.crux_templates }}/wait_for_cluster_ready/wait_for_cluster_ready.yaml@crux
+          - template: ${{ parameters.crux_templates }}/validate_deployment/validate_deployment.yaml@crux
           - template: ${{ parameters.crux_templates }}/jmeter/jmeter.yaml@crux
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux
@@ -124,7 +169,12 @@ jobs:
           - template: ${{ parameters.crux_templates }}/archive_jmeter_server_logs/archive_jmeter_server_logs.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit/junit.yaml@crux
           - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_deployment/delete_deployment.yaml@crux
+            parameters:
+              tool: helm
+              mode: ${{ parameters.mode }}
           - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.yaml@crux
+          - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.yaml@crux
           - template: ${{ parameters.crux_templates }}/delete_nodepool/delete_nodepool.yaml@crux
             parameters:
               mode: ${{ parameters.mode }}
@@ -143,6 +193,8 @@ jobs:
         - template: ${{ parameters.crux_templates }}/configure_cluster/configure_cluster.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/create_namespace/create_namespace.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/deploy_to_cluster/deploy_to_cluster.mock.yaml@crux
+        - template: ${{ parameters.crux_templates }}/wait_for_cluster_ready/wait_for_cluster_ready.mock.yaml@crux
+        - template: ${{ parameters.crux_templates }}/validate_deployment/validate_deployment.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/jmeter/jmeter.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.mock.yaml@crux
@@ -153,6 +205,8 @@ jobs:
         - template: ${{ parameters.crux_templates }}/junit/junit.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/junit_publish/junit_publish.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/delete_namespace/delete_namespace.mock.yaml@crux
+        - template: ${{ parameters.crux_templates }}/delete_deployment/delete_deployment.mock.yaml@crux
+        - template: ${{ parameters.crux_templates }}/delete_volume/delete_volume.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/delete_nodepool/delete_nodepool.mock.yaml@crux
           parameters:
             mode: ${{ parameters.mode }}
