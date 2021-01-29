@@ -53,7 +53,7 @@ jobs:
               enabled: false
           - template: ${{ parameters.crux_templates }}/jmeter_docker/jmeter_docker.yaml@crux
             parameters:
-              image: "gabrielstar/crux-master:jmeter5.4-chrome87"
+              image: "objectivityltd/crux-master:jmeter5.4-chrome87"
               JVM_ARGS: "-Xms512M -Xmx1536M"
           - template: ${{ parameters.crux_templates }}/workbooks_upload/workbooks_upload.yaml@crux
           - template: ${{ parameters.crux_templates }}/archive_jmeter_report/archive_jmeter_report.yaml@crux

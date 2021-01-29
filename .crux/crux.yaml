@@ -1,10 +1,5 @@
 #Author: Gabriel Starczewski
 name: $(BuildID)
-schedules:
-  - cron: "0 */8 * * *"
-    branches:
-      include:
-        - release/0.8.0
 
 resources:
   repositories:
@@ -30,11 +25,6 @@ parameters:
       - on_aks_created_for_each_test_run
       - tests
 
-  - name: jmeter_slaves
-    displayName: JMeter slaves number to run test
-    default: 1
-    type: number
-
   - name: jmx
     displayName: JMeter scenario file
     default: .crux/test/script/bing.jmx
@@ -44,6 +34,12 @@ parameters:
     displayName: JMeter arguments passed to tests
     default: "-Gthreads=0 -Gloops=0 -Gwait=1 -Gdata_dir=/shared"
     type: string
+
+  #valid when using kubernetes
+  - name: jmeter_slaves
+    displayName: JMeter slaves number to run test
+    default: 1
+    type: number
 
   - name: kubernetes_service_connection
     displayName: K8 Connection
