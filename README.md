@@ -1,11 +1,16 @@
 # CRUX enabled repo
 
-This is a sample CRUX-enabled repo
-In order to use it:
-- copy folder .crux to you repository
-- edit .crux/crux.yaml"
-    - specify resources for CRUX and your tests:
-        - Git service connections
-        - Kubernetes Service connection 
-        - ARM Service connection
-    - adjust paths and parameters 
+In order to install CRUX:
+
+1) Copy .crux folder to root of your repository
+2) Go to your devops project and set-up a service connection to GitHub with the name 'crux'
+3) Add pipeline from .crux/crux.yaml to your devops project
+4) run pipeline with default settings
+
+Now, play with tests by editing the jmx file in .crux/test/script folder.
+
+Video instruction is available here: https://youtu.be/rW68zpY3oFs
+
+Written instruction: https://github.com/ObjectivityLtd/crux/wiki/Installation
+
+
