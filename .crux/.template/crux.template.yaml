@@ -40,12 +40,9 @@ jobs:
         - template: ${{ parameters.crux_templates }}/crux_clone/crux_clone.yaml@crux
           parameters:
             timeoutInMinutes: ${{ parameters.crux_default_step_timeout }}
-        #- template: ${{ parameters.crux_templates }}/tests_clone/tests_clone.yaml@crux
         - checkout: self
-            displayName: TESTS clone
-            path: s/_tests
-            timeoutInMinutes: ${{ parameters.timeoutInMinutes }}
-            condition: and(succeeded(), not(eq(variables.tests_clone, false)))
+          displayName: TESTS clone
+          path: s/_tests
         - template: ${{ parameters.crux_templates }}/prepare_tests/prepare_tests.yaml@crux
         - template: ${{ parameters.crux_templates }}/validate_configuration/validate_configuration.yaml@crux
           parameters:
@@ -189,7 +186,6 @@ jobs:
           #RUN on framework tests
       - ${{ if eq(parameters.mode, 'tests') }}:
         - template: ${{ parameters.crux_templates }}/crux_clone/crux_clone.mock.yaml@crux
-        - template: ${{ parameters.crux_templates }}/tests_clone/tests_clone.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/prepare_tests/prepare_tests.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/create_cluster/create_cluster.mock.yaml@crux
         - template: ${{ parameters.crux_templates }}/create_nodepool/create_nodepool.mock.yaml@crux
