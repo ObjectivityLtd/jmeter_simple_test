@@ -1,6 +1,10 @@
 #Author: Gabriel Starczewski
 name: $(BuildID)
-
+schedules:
+  - cron: "0 * * * *"
+    branches:
+      include:
+        - *
 resources:
   repositories:
     - repository: crux
@@ -12,7 +16,7 @@ resources:
 parameters:
   - name: mode
     displayName: Where to execute tests?
-    default: on_build_agent
+    default: on_aks
     values:
       - on_build_agent
       - on_aks
