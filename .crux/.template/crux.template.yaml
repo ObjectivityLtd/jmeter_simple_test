@@ -40,7 +40,12 @@ jobs:
         - template: ${{ parameters.crux_templates }}/crux_clone/crux_clone.yaml@crux
           parameters:
             timeoutInMinutes: ${{ parameters.crux_default_step_timeout }}
-        - template: ${{ parameters.crux_templates }}/tests_clone/tests_clone.yaml@crux
+        #- template: ${{ parameters.crux_templates }}/tests_clone/tests_clone.yaml@crux
+        - checkout: self
+            displayName: TESTS clone
+            path: s/_tests
+            timeoutInMinutes: ${{ parameters.timeoutInMinutes }}
+            condition: and(succeeded(), not(eq(variables.tests_clone, false)))
         - template: ${{ parameters.crux_templates }}/prepare_tests/prepare_tests.yaml@crux
         - template: ${{ parameters.crux_templates }}/validate_configuration/validate_configuration.yaml@crux
           parameters:
