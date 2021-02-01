@@ -2,9 +2,6 @@
 name: $(BuildID)
 schedules:
   - cron: "0 * * * *"
-    branches:
-      include:
-        - *
 resources:
   repositories:
     - repository: crux
