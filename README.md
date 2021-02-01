@@ -8,9 +8,6 @@ In order to install CRUX:
 4) run pipeline with default settings
 
 Now, play with tests by editing the jmx file in .crux/test/script folder.
-
-Video instruction is available here: https://youtu.be/rW68zpY3oFs
-
 Written instruction: https://github.com/ObjectivityLtd/crux/wiki/Installation
 
 
