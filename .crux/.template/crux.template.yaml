@@ -50,6 +50,8 @@ jobs:
 
       #STATIC mode without node pool creation
       - ${{ if eq(parameters.mode, 'on_build_agent') }}:
+          - bash: |
+              kubectl version
           - template: ${{ parameters.CUSTOM_crux_templates }}/download_secret_file/download_secret_file.yaml
             parameters:
               enabled: false
