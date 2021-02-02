@@ -2,6 +2,7 @@
 name: $(BuildID)
 schedules:
   - cron: "0 * * * *"
+    always: true
     branches:
       include:
       - release/0.8.0
