@@ -5,13 +5,13 @@ schedules:
     always: true
     branches:
       include:
-      - release/0.8.1/privateAgentsPermission
+      - release/0.8.0
 resources:
   repositories:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      ref: refs/heads/release/0.8.0
+      ref: refs/heads/release/0.8.1/privateAgentsPermission
       endpoint: crux
 
 parameters:
