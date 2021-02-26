@@ -11,7 +11,7 @@ resources:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      ref: refs/heads/release/0.8.1/privateAgentPermission
+      ref: refs/heads/release/0.8.1/privateAgentPermissions
       endpoint: crux
 
 parameters:
