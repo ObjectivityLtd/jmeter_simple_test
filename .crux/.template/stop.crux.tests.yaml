@@ -8,9 +8,6 @@ parameters:
     default: default
 
 variables:
-  _crux_scale_down_replicas: 0
-  _crux_jmeter_slaves_service: jmeter-slaves
-  _crux_jmeter_service_master: jmeter-master
   _crux_sleep: 10
 
 jobs:
@@ -37,28 +34,6 @@ jobs:
         else
           kubectl -n ${{ parameters._crux_exisiting_cluster_namespace }} exec -ti $master_pod bash /jmeter/apache-jmeter-5.4/bin/stoptest.sh
           echo "##[command] _crux_sleep $(_crux_sleep)"
-          _crux_sleep $(_crux_sleep)
+          sleep $(_crux_sleep)
         fi
       displayName: Stop JMeter tests
-
-    - task: KubernetesManifest@0
-      condition: ne(variables.scale,false)
-      displayName: Scale slaves to $(_crux_scale_down_replicas)
-      inputs:
-        _crux_kubernetes_service_connection:  ${{ parameters._crux_kubernetes_service_connection }}
-        action: scale
-        kind: deployment
-        name: $(_crux_jmeter_slaves_service)
-        replicas: $(_crux_scale_down_replicas)
-        namespace: ${{ parameters._crux_exisiting_cluster_namespace }}
-
-    - task: KubernetesManifest@0
-      condition: ne(variables.scale,false)
-      displayName: Scale master to $(_crux_scale_down_replicas)
-      inputs:
-        _crux_kubernetes_service_connection:  ${{ parameters._crux_kubernetes_service_connection }}
-        action: scale
-        kind: deployment
-        name: $(_crux_jmeter_service_master)
-        replicas: $(_crux_scale_down_replicas)
-        namespace: ${{ parameters._crux_exisiting_cluster_namespace }}
