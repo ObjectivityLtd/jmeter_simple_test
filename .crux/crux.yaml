@@ -1,12 +1,17 @@
 #Author: Gabriel Starczewski
 name: $(BuildID)
-
+schedules:
+  - cron: "0 * * * *"
+    always: true
+    branches:
+      include:
+      - release/0.8.1
 resources:
   repositories:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      ref: refs/heads/release/0.8.0
+      ref: refs/heads/release/0.8.1
       endpoint: crux
 
 parameters:

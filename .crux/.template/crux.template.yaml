@@ -19,6 +19,8 @@ parameters:
 
 jobs:
   - job: JMeter
+    workspace:
+      clean: all
     timeoutInMinutes: ${{ parameters.crux_job_timeout }}
     displayName: JMeter pipeline
     #choose pool
@@ -41,6 +43,7 @@ jobs:
           parameters:
             timeoutInMinutes: ${{ parameters.crux_default_step_timeout }}
         - checkout: self
+          clean: true
           displayName: TESTS clone
           path: s/_tests
         - template: ${{ parameters.crux_templates }}/prepare_tests/prepare_tests.yaml@crux
