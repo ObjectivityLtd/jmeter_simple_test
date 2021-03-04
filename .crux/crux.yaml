@@ -11,7 +11,7 @@ resources:
     - repository: crux
       type: github
       name: ObjectivityLtd/crux
-      ref: refs/heads/feature/workbook_split
+      ref: refs/heads/release/0.8.2
       endpoint: crux
 
 parameters:
